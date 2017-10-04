@@ -1,0 +1,689 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cho",
+				"choosed"
+			],
+			[
+				"n",
+				"nNivel"
+			],
+			[
+				"lnA",
+				"lnAceptar"
+			],
+			[
+				"E",
+				"ERROR_ESTADISTICO"
+			],
+			[
+				"T",
+				"TRUE"
+			],
+			[
+				"MEN",
+				"MENSAXE_TIPO_OBU_RETROCESO"
+			],
+			[
+				"MENSAXE_TIPO_OBU_",
+				"MENSAXE_TIPO_OBU_ASIGNADO"
+			],
+			[
+				"C_LIS",
+				"C_LISTA_PRIMERO"
+			],
+			[
+				"f_description_em",
+				"f_description__empty"
+			],
+			[
+				"LEN",
+				"LEN_DESCRIPTION"
+			],
+			[
+				"LE",
+				"LEN_CODE"
+			],
+			[
+				"LEN_",
+				"LEN_LINE"
+			],
+			[
+				"IPC",
+				"IPC_NOWAIT"
+			],
+			[
+				"tipo",
+				"tipo_ok"
+			],
+			[
+				"me",
+				"mcTestPeriferico"
+			],
+			[
+				"mc",
+				"mcTestLevel"
+			],
+			[
+				"NI",
+				"NIVEL_INFERIOR"
+			],
+			[
+				"BARRERA",
+				"BARRERA_ENTRADA"
+			],
+			[
+				"bRe",
+				"bRectificarSoObu"
+			],
+			[
+				"TI",
+				"TICKET"
+			],
+			[
+				"LOG_SE",
+				"LOG_SEND_NET_DISK"
+			],
+			[
+				"StPeanasStateAddKO",
+				"StPeanasStateAddKOIndex"
+			],
+			[
+				"bille",
+				"billetes_devoltos"
+			],
+			[
+				"BULK",
+				"BULK_DOWN"
+			],
+			[
+				"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_A",
+				"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_ASK_PARCIAL"
+			],
+			[
+				"p",
+				"porcentaje_llenado"
+			],
+			[
+				"N",
+				"NUM_NIVEIS"
+			],
+			[
+				"CAR",
+				"CAB_TERM_PECHE_REPOSO"
+			],
+			[
+				"bulk",
+				"BULK_UP"
+			],
+			[
+				"BU",
+				"BULK_DOWN"
+			],
+			[
+				"STATE_N",
+				"STATE_NORMAL_CLOUSING"
+			],
+			[
+				"FIN",
+				"FIN_RETIRADA"
+			],
+			[
+				"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_IMPRIMIR_",
+				"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_IMPRIMIR_HOPPERS"
+			],
+			[
+				"CAB_TERM_PECHE_RETIRANDO_IM",
+				"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_IMPRIMIR_PECHE"
+			],
+			[
+				"SIN",
+				"SIN_ERROR"
+			],
+			[
+				"DATO",
+				"DATO_DEVOLTO"
+			],
+			[
+				"ST",
+				"STATE_REPOSO"
+			],
+			[
+				"lcEvento",
+				"lcEvento2"
+			],
+			[
+				"lcEve",
+				"lcEvento2"
+			],
+			[
+				"SAIDA_C",
+				"SAIDA_CORTINA_DOBLE"
+			],
+			[
+				"SAIDA_",
+				"SAIDA_FOTOCELULA"
+			],
+			[
+				"NO",
+				"NO_PAGO"
+			],
+			[
+				"MOD",
+				"MODULO_WARNNING"
+			],
+			[
+				"nEstacionTicketGiroJ",
+				"nEstacionTicketGiroJCambiar"
+			],
+			[
+				"nS",
+				"nSessionType"
+			],
+			[
+				"Sess",
+				"SessionType"
+			],
+			[
+				"TYPE_LOG_AUTOMATICA_",
+				"TYPE_LOG_AUTOMATICA_ERROR"
+			],
+			[
+				"B",
+				"BULK_UP"
+			],
+			[
+				"TarA",
+				"TarAskLevel"
+			],
+			[
+				"Tar",
+				"TarAskLevel"
+			],
+			[
+				"ERROR",
+				"ERROR_NO_FUNCIONA"
+			],
+			[
+				"sz",
+				"szIpServers"
+			],
+			[
+				"PAGO_",
+				"PAGO_EXENTO"
+			],
+			[
+				"PA",
+				"PAGO_EFECTIVO"
+			],
+			[
+				"0x",
+				"0x3f"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Build With: Make"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib2,os,hashlib;",
+			"import urllib2,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/jota/python/beiras-rnn"
+	],
+	"file_history":
+	[
+		"/home/jota/python/beiras-rnn/README.md",
+		"/home/jota/svn/ServerITS/README.md",
+		"/home/jota/svn/NovaTollLane-debian7/src/Admin/loxica/loxica-memoria.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Admin/loxica/loxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxDinamico.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxDinamicoSaida.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/logica-dinamica.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/comunes.h",
+		"/home/jota/svn/NovaTollLane-debian7/include/antena.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/logica-manual.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/loxica-terminator.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/loxica-imprimir.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/include/erros_internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/ImpFileRecibo/impfilerecibo.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Indicador/IndGigaTMS/driverIndGigaTMS.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Ind2Levels/loxica/serverInd2Levels.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/antena.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/loxica/cantena.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/Saab/licetc01.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Ind2Levels/loxica/serverloxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Admin/loxica/loxica-online.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/ImpTUP500/driverImpTUP500.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/loxica/serverloxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/loxica/serverImp2Levels.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/logica-manual.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/loxica-terminator.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/loxica-retirada.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicImpresora.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/loxica/loxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/Driver/Bulk.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/Driver/Bill.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/Driver/BillCcnet.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/include/erros-internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/loxica/libState.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/loxica/Makefile",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicBulk.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/cliente/cliente_Tarjeta.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/include/erros-internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/include/liblista.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/libs-src/liblista/lista.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/impfilerecibo.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/TarjetaArce/driverTarjetaArce.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicAdmin.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Indicador/IndBQ/driverIndBQ.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/logica-entrada.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/control/main.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/control/Imp2LevelsControl.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/libconfig.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/libs-src/libconfig/libconfig.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/loxica/cantena-socortina.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxEixos.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/include/erros-internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/control/TarjetaControl.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/IndControl.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/include/serverImp2Levels.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/include/deferros.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/interface/PicCabina.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/controla-peanas.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxDinamicoEntrada.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxDR.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/Driver/ardunovatoll/ardu_driver.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/libs-src/libsinais/libsinais.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/libEventos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/Driver/usb_red/usbreddriver.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/ImpControl.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/ImpTUP500/driverImpTUP500.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/interface/server.c",
+		"/home/jota/Escritorio/UpWork/crypto_apis_upwork/apis/bithumb.py",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/dsrc.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/Saab/licetc01.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Admin/server/main.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/Telvent/driver.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/include/erros-internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/logica-aux.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/include/ccTalk.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/licetc02.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/main.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Admin/interface/interface.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/interno.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/SaabNetwork/licetc02.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/TarjetaArce/driverTarjetaArce.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxManual.c~",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxSoDr.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicIndicador.h",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicIndicador2Levels.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/include/driverImp.h",
+		"/home/jota/svn/NovaTollLane-debian7/include/TarjetaControl.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/loxica/serverTarjeta.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/TarjetaOmron/driverTarjetaOmron.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Tarjeta/loxica/serverloxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Ticket2Levels/loxica/serverloxica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/ImpTUP500/driverImpTUP500.c.r7540",
+		"/home/jota/svn/NovaTollLane-debian7/src/Imp2Levels/include/serverloxica.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Ticket2Levels/loxica/serverTicket2Levels.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/dac.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/Saab/antena.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/Driver/Saab/main.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/include/MensaxesUsuario.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/include/loxica-terminator.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/cabina/loxica/loxica-TarAsk.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Bulk/control/control.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/barrera-destino.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/include/Daclox.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/control/DacControl.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/Driver/arcenovatoll/arce_driver.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/DacLoxManual.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/DAC/loxica/rebote-input.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/control/red.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/logica/telecontrol-cc.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/logica/LogicaTransferencia.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/interface/server.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/interface/TelecontrolPic.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/logica/LibMessagesSkynet.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Telecontrol/logica/LogicaAlarma.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/libs-src/libEventos/libEventos.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/include/logic.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/include/logica-aux.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/logica-arco.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/logica.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/interface/PicLogica.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/libs-src/libState/libState.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/loxica/loxica/loxicaState.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/control/erros-internos.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/interface/PicAnt.c",
+		"/home/jota/svn/NovaTollLane-debian7/src/Antena/interface/server.c",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicSHI.h",
+		"/home/jota/svn/NovaTollLane-debian7/include/PicTeclado.h",
+		"/home/jota/svn/NovaTollLane-debian7/src/Ticket2Levels/include/deferros.h"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"/home/jota/svn/NovaTollLane-debian7/src/",
+			"/home/jota/svn/NovaTollLane-debian7/src/loxica",
+			"/home/jota/svn/NovaTollLane-debian7/src/Indicador",
+			"/home/jota/svn/NovaTollLane-debian7/src/libs-src",
+			"/home/jota/svn/NovaTollLane-debian7/src/Grabacion",
+			"/home/jota/svn/NovaTollLane-debian7/src/loxica",
+			"/home/jota/svn/NovaTollLane-debian7/src",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"bConfigSelectLevelPrintbyLastOperation",
+			"bLastLevelOperation",
+			"lnlevel",
+			"Pulsacion recibo",
+			"LoxTermImprimir",
+			"bConfigSelectLevelPrintbyLastOperation",
+			"lcCabImpObuSegundaTarifa",
+			"nImprimir",
+			"lcCabImpObuSegundaTarifa",
+			"DacLoxSaidaDesactivar",
+			"DAC_DINAMICA_SALIDA_FIN ",
+			"DacReadMedidasPostClasificacion",
+			"cContador",
+			"lnTransaccion",
+			"gvAntenaErrorWrite",
+			"Tarjeta",
+			"AdminLoxConfigShowTarifaDisplay",
+			"mbAdminConfigShowTarifaDisplay",
+			"AdminLoxConfigShowTarifaDisplay",
+			"mbAdminConfigShowTarifaDisplay",
+			"impfilerecibo_getline2print",
+			"Marco Pending Retirado",
+			"LoxRetiradaPrint",
+			"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_IMPRIMIR_PECHE",
+			"CAB_TERM_PECHE_RETIRANDO_EFECTIVO_SAVE_BILL",
+			"Acumulado",
+			"non existe cambio para",
+			"mBillMax",
+			"lnCambio",
+			"BulkAvisoCambios",
+			"BulkCheckAcumulado",
+			"non existe cambio para",
+			"bLastLevelOperation",
+			"LoxTermImprimir",
+			"LoxTermImprimir(BULK_DOWN);",
+			"LoxTermImprimir",
+			"CabImpDo",
+			"CabTermInitCobroBulk",
+			"ManexadorEventosBulk",
+			"mnNivelTicket",
+			"nNivel",
+			"StOperacion",
+			"bAlwaysShowIni",
+			"lcPeaxistaPagado",
+			"lvCabinaPagarTicket",
+			"lcPeaxistaPagadoTarxeta",
+			"lvCabinaPagarTicket",
+			"lnTicketEmitir",
+			"ManexadorEventosTarjetaCabina",
+			"€",
+			"mvLoxicaDinamicaIsPeaxistaWorking",
+			"mbAdminConfigShowTarifaDisplay",
+			"AdminLoxConfigShowTarifaDisplay",
+			"mbAdminConfigShowTarifaDisplay",
+			"ConfigAdminOnlineCheckNegativas",
+			"LibAdminGetLineMessages",
+			"gcCListaModificarMedidasPostClasificacion",
+			"mvLoxicaDinamicaIsPeaxistaWorking",
+			"LoxTermIs()==FALSO",
+			"lbLoxicaPeaxista",
+			"mcEstadoGlobal",
+			"mcEstadoLoxica",
+			"gcCListaModificarMedidasPostClasificacion",
+			"ERROR_LOGICA_NO_LIB_EVENTOS",
+			"gvCListaCrearComenzo",
+			"gvCListaCrearComenzo()",
+			"lcCabinaTicket",
+			"lvCabinaPagarTicket",
+			"AddCar",
+			"LoxTermOperandoManual",
+			"mcTerminator",
+			"COperador ordena crear vehiculo",
+			"bRectificarSoObu",
+			"no pago obu",
+			"Mani",
+			"DocumentoImpresionReciboPagoTarjeta",
+			"DOCUMENTO_PAGO_TARJETAOOBE",
+			"nEstacionTicketGiroU",
+			"TAG_XIRO_U",
+			"Avisar",
+			"nEstacionTicketGiroU",
+			"TAG_XIRO_U",
+			"nEstacionTicketGiroU",
+			"LibAdmCkeckSource",
+			"Contexto",
+			"SzControl",
+			"WRITE_DISPLAY",
+			"driverBQChangeSpecialCodesString",
+			"Change",
+			"mbTermMensajesTarjetaMecanico",
+			"Tarxeta Lida",
+			"EventoTeclado2CabinaFakeTarjetaUp",
+			"CabinaCkeckCard",
+			"mbSoCortinaDesabilitarLeer",
+			"main",
+			"Imp2LevelsControlArranque",
+			"min_impresora",
+			"NO EXISTE",
+			"nivel_parametros",
+			"Cabina",
+			"ArranqueModulosCobr",
+			"COperador ordena crear vehiculo",
+			"nivel_parametros",
+			"bSoloNivelInferior",
+			"LoxImpLeerConfiguracionVia",
+			"main",
+			"Modulo Tarjeta No Existe",
+			"MOXA",
+			"IMP2LEVELS_CONFIG_PUERTO_SERIE_INFERIOR",
+			"EVENTO_102_to_132",
+			"valorleido_usb1",
+			"DacDrvReadBlock 22",
+			"ManexadorEventosCAntenaLight",
+			"ManexadorEventosVIDEOORIGENCabina",
+			"LoxTermEnvioOrixen",
+			"DacDrvReadBlock",
+			"NETDacDrvReadBlock",
+			"ManexadorUpTimerUsb",
+			"NetDriverConexion",
+			"DacDrvReadBlock",
+			"USBDacDrvReadBlock",
+			"30",
+			"Inicio",
+			"ReadB",
+			"Video Origen Fiabilidad",
+			"memset",
+			"StDatosTag",
+			"gvAntenaTelventDecodificarEtcResposta"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"tipo_informacion",
+			"tipo_informacion\n",
+			")\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 192.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 28.0
+	},
+	"pinned_build_system": "",
+	"project": "beiras-rnn.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Escritorio/udacity/aind/aind.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 361.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}
