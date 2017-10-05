@@ -79,14 +79,19 @@ dependencies:
   - jupyter-console==5.2.0
   - jupyter-core==4.3.0
   - keras==2.0.8
+  - markdown==2.6.9
   - matplotlib==2.0.2
   - numpy==1.13.3
   - parso==0.1.0
   - prompt-toolkit==1.0.15
+  - protobuf==3.4.0
   - pyparsing==2.2.0
   - pytz==2017.2
   - pyyaml==3.12
   - scipy==0.19.1
+  - tensorflow==1.3.0
+  - tensorflow-tensorboard==0.1.8
   - webencodings==0.5.1
-prefix: /home/jota/anaconda3/envs/beiras-rnn
+  - werkzeug==0.12.2
+prefix: /home/aind2/anaconda3/envs/beiras-rnn
 
