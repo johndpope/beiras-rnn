@@ -51,15 +51,16 @@ def LoadText(sz_file,window_size,step_size):
     # this dictionary is a function mapping each unique integer back to a unique character
     indices_to_chars = dict((i, c) for i, c in enumerate(chars))  # map each unique integer back to unique character
     X,y = encode_io_pairs(text_clean,window_size,step_size,chars_to_indices)
-    return X,y,chars,chars_to_indices,indices_to_chars
+    return X,y,chars,chars_to_indices,indices_to_chars,text_clean
 
 
-def predict_next_chars(model,input_chars,num_to_predict,chars_to_indices,indices_to_chars):     
+def predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to_chars):     
     # create output
+    number_chars=len(chars_to_indices)
     predicted_chars = ''
-    for i in range(num_to_predict):
+    for i in range(window_size):
         # convert this round's predicted characters to numerical input    
-        x_test = np.zeros((1, window_size, len(chars)))
+        x_test = np.zeros((1, window_size, number_chars))
         for t, char in enumerate(input_chars):
             x_test[0, t, chars_to_indices[char]] = 1.
 
@@ -77,7 +78,7 @@ def predict_next_chars(model,input_chars,num_to_predict,chars_to_indices,indices
     return predicted_chars
 
 
-def print_predicctions(model,weights_file,num_to_predict,chars_to_indices,indices_to_chars):
+def print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,text_clean,window_size):
     start_inds = [100,1000,5000]
 
     # load in weights
@@ -87,7 +88,7 @@ def print_predicctions(model,weights_file,num_to_predict,chars_to_indices,indice
         input_chars = text_clean[start_index: start_index + window_size]
 
         # use the prediction function
-        predict_input = predict_next_chars(model,input_chars,num_to_predict = 100)
+        predict_input = predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to_chars)
 
         # print out input characters
         print('------------------')
