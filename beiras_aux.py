@@ -36,15 +36,19 @@ def encode_io_pairs(text,window_size,step_size,chars_to_indices):
         
     return X,y
 
-def LoadText(sz_file,window_size,step_size):
-    text_org = open(sz_file, encoding="utf-8").read().lower()
+def clean_text(text_org):
     text_without_source="";
     regexp=re.compile(r'http')
     for line in text_org.splitlines():
         if not regexp.search(line):
             text_without_source= text_without_source + line
     text_clean = re.sub('[ºªàâäçèêïìôöü&%@•…«»”“*/!"(),.:;_¿¡¿‘’´\[\]\']',' ',text_without_source)
-    text_clean = text_clean.replace("  "," ")
+    text_clean = text_clean.replace("  "," ") 
+    return text_clean
+
+def LoadText(sz_file,window_size,step_size):
+    text_org = open(sz_file, encoding="utf-8").read().lower()
+    text_clean=clean_text(text_org);
     chars=sorted(list(set(text_clean )))
     # this dictionary is a function mapping each unique character to a unique integer
     chars_to_indices = dict((c, i) for i, c in enumerate(chars))  # map each unique character to unique integer
