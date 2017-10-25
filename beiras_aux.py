@@ -79,7 +79,8 @@ def predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to
     return predicted_chars
 
 
-def print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,text_clean,window_size):
+
+def  print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,text_clean,window_size):
     start_inds = [100,1000,5000]
 
     # load in weights
@@ -105,18 +106,37 @@ def save_coded_dictionaries(chars_to_indices,indices_to_chars):
         pickle.dump(chars_to_indices, output, pickle.HIGHEST_PROTOCOL)
         pickle.dump(indices_to_chars, output, pickle.HIGHEST_PROTOCOL)
 
-def load_coded_dictionaries(chars_to_indices,indices_to_chars):
-    with open('dictionaries.pkl', 'wb') as output:
-        pickle.loca(chars_to_indices, output, pickle.HIGHEST_PROTOCOL)
-        pickle.load(indices_to_chars, output, pickle.HIGHEST_PROTOCOL)
+def load_coded_dictionaries():
+    with open('dictionaries.pkl', 'rb') as output:
+        chars_to_indices=pickle.load( output)
+        indices_to_chars=pickle.load( output)
+    return chars_to_indices,indices_to_chars
 
-
+def encode_text(text,chars_to_indices):
+    
+    text_coded=np.zeros((len(text)))
+    for t, char in enumerate(text):
+            text_coded[t]=chars_to_indices[char]
+    return text_coded
+def decode_text(text_coded,indices_to_chars):
+    
+    text_decoded=""
+    for t, index in enumerate(text_coded):
+            text_decoded+=indices_to_chars[index]
+    return text_decoded
+    
 
 if __name__ == "__main__":
     window_size = 100
     step_size = 1
-    X, y, chars, chars_to_indices, indices_to_chars = LoadText('Beiras.txt', window_size, step_size);
-
-
-
+    X, y, chars, chars_to_indices, indices_to_chars,text_clean = LoadText('Beiras.txt', window_size, step_size);
+    save_coded_dictionaries(chars_to_indices,indices_to_chars)
+    chars_to_indices_new,indices_to_chars_new=load_coded_dictionaries()
+    text_org=text_clean[:100]
+    print(text_org)
+    text_coded=encode_text(text_org,chars_to_indices)
+    print(text_coded)
+    text_decoded=decode_text(text_coded,indices_to_chars_new)
+    print(text_decoded)
+    
 
