@@ -1,5 +1,6 @@
 import numpy as np
 import re
+import pickle
 
 def window_transform_text(text,window_size,step_size):
     # containers for input/output pairs
@@ -98,4 +99,24 @@ def print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,text
         # print out predicted characters
         line = 'predicted chars = ' + '\n' +  predict_input + '"' + '\n'
         print(line)  
+
+def save_coded_dictionaries(chars_to_indices,indices_to_chars):
+    with open('dictionaries.pkl', 'wb') as output:
+        pickle.dump(chars_to_indices, output, pickle.HIGHEST_PROTOCOL)
+        pickle.dump(indices_to_chars, output, pickle.HIGHEST_PROTOCOL)
+
+def load_coded_dictionaries(chars_to_indices,indices_to_chars):
+    with open('dictionaries.pkl', 'wb') as output:
+        pickle.loca(chars_to_indices, output, pickle.HIGHEST_PROTOCOL)
+        pickle.load(indices_to_chars, output, pickle.HIGHEST_PROTOCOL)
+
+
+
+if __name__ == "__main__":
+    window_size = 100
+    step_size = 1
+    X, y, chars, chars_to_indices, indices_to_chars = LoadText('Beiras.txt', window_size, step_size);
+
+
+
 
