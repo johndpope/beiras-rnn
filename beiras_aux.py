@@ -1,8 +1,32 @@
+"""
+Auxilar funcions for beiras_rnn
+There is 3 group of function
+- Clean and load the text file
+- Create a text sequeence.
+- Save and load dictionaries
+- A main part to test dictionaries part
+"""
+
+
 import numpy as np
 import re
 import pickle
 
+
+"""
+Funtions Clean and load the text file
+"""
+
 def window_transform_text(text,window_size,step_size):
+    """
+    Use sliding window to extract input/output pairs from a text
+    params:
+        text .- text to windownize
+        windows_size .- Len of any input sentence to return
+    Return:
+        input .- array of sentence 
+        output .- for any sentence in input, the next charazter
+    """
     # containers for input/output pairs
     inputs = []
     outputs = []
@@ -15,8 +39,11 @@ def window_transform_text(text,window_size,step_size):
         outputs.append(text[k+window_size])
     return inputs,outputs
 
-# transform character-based input/output into equivalent numerical versions
+
 def encode_io_pairs(text,window_size,step_size,chars_to_indices):
+    """
+     transform character-based input/output into equivalent numerical versions
+    """
     # number of unique chars
     chars = sorted(list(set(text)))
     num_chars = len(chars)
@@ -36,7 +63,11 @@ def encode_io_pairs(text,window_size,step_size,chars_to_indices):
         
     return X,y
 
+
 def clean_text(text_org):
+    """
+    Clean a text
+    """
     text_without_source="";
     regexp=re.compile(r'http')
     for line in text_org.splitlines():
@@ -46,20 +77,33 @@ def clean_text(text_org):
     text_clean = text_clean.replace("  "," ") 
     return text_clean
 
+
 def LoadText(sz_file,window_size,step_size):
+    """
+    Load a text, clean it and windownize
+    """
     text_org = open(sz_file, encoding="utf-8").read().lower()
     text_clean=clean_text(text_org);
     chars=sorted(list(set(text_clean )))
     # this dictionary is a function mapping each unique character to a unique integer
-    chars_to_indices = dict((c, i) for i, c in enumerate(chars))  # map each unique character to unique integer
-
+    chars_to_indices = dict((c, i) for i, c in enumerate(chars))  
     # this dictionary is a function mapping each unique integer back to a unique character
-    indices_to_chars = dict((i, c) for i, c in enumerate(chars))  # map each unique integer back to unique character
+    indices_to_chars = dict((i, c) for i, c in enumerate(chars))  
     X,y = encode_io_pairs(text_clean,window_size,step_size,chars_to_indices)
     return X,y,chars,chars_to_indices,indices_to_chars,text_clean
 
 
-def predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to_chars):     
+"""
+Functions to create a text sequence.
+"""
+
+
+
+def predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to_chars):
+    """
+    Predict next window_size character from a sentence using a model
+    chars_to_indices and indices to chars are dictionaries uses to translate char in index.    Must be the same that used in training the model.   
+    """
     # create output
     number_chars=len(chars_to_indices)
     predicted_chars = ''
@@ -85,6 +129,10 @@ def predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to
 
 
 def  print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,text_clean,window_size):
+    """
+      Print predicctions for sentence beginning in position 100,1000 and 5000 of text_clean
+    chars_to_indices and indices to chars are dictionaries uses to translate char in index. Must be the same that used in training the model.
+    """
     start_inds = [100,1000,5000]
 
     # load in weights
@@ -96,14 +144,12 @@ def  print_predicctions(model,weights_file,chars_to_indices,indices_to_chars,tex
         # use the prediction function
         predict_input = predict_next_chars(model,input_chars,window_size,chars_to_indices,indices_to_chars)
 
-        # print out input characters
-        print('------------------')
-        input_line = 'input chars = ' + '\n' +  input_chars + '"' + '\n'
-        print(input_line)
-
-        # print out predicted characters
-        line = 'predicted chars = ' + '\n' +  predict_input + '"' + '\n'
-        print(line)  
+        print (input_chars + "...." +  predict_input)
+        
+        
+"""
+Functions to  save and load dictionaries        
+"""
 
 def save_coded_dictionaries(chars_to_indices,indices_to_chars):
     with open('dictionaries.pkl', 'wb') as output:
@@ -116,14 +162,20 @@ def load_coded_dictionaries():
         indices_to_chars=pickle.load( output)
     return chars_to_indices,indices_to_chars
 
-def encode_text(text,chars_to_indices):
-    
+
+def encode_text(text,chars_to_indices):   
+    """
+    Encode a text using a dictionary
+    """
     text_coded=np.zeros((len(text)))
     for t, char in enumerate(text):
             text_coded[t]=chars_to_indices[char]
     return text_coded
+
 def decode_text(text_coded,indices_to_chars):
-    
+    """
+        Encode a text using a dictionary
+    """
     text_decoded=""
     for t, index in enumerate(text_coded):
             text_decoded+=indices_to_chars[index]
@@ -131,6 +183,9 @@ def decode_text(text_coded,indices_to_chars):
     
 
 if __name__ == "__main__":
+    """
+    Test the functions to  save and load dictionaries  
+    """
     window_size = 100
     step_size = 1
     X, y, chars, chars_to_indices, indices_to_chars,text_clean = LoadText('Beiras.txt', window_size, step_size);
