@@ -22,6 +22,7 @@ https://github.com/udacity/aind2-rnn/blob/master/RNN_project.ipynb
 ### Beiras-rnn-gan
 In this notebook, we develog a GAN network with Recurrent Neural Network (RNN) to create a Galician language sequence generator. In this project, we use text from the Galician politician Beiras. 
 
+
 **A GAN network does not work in this case**
 
 This work is based on 
