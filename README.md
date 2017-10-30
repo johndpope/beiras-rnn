@@ -3,7 +3,8 @@ In this notebook, we develog a Recurrent Neural Network (RNN) to create a Galici
 
 This work is based in [aind2-rnn](https://github.com/udacity/aind2-rnn/blob/master/RNN_project.ipynb)
 
-## Description notebook
+
+## Description notebook for train (./train)
 ### beiras-rnn
 
 In this notebook, we develog a Recurrent Neural Network (RNN) to create a Galician language sequence generator. In this project, we use text from the Galician politician Beiras. 
@@ -61,6 +62,7 @@ source activate beiras-rnn
 ### Lanch notebook
 jupyter notebook 
 ### Make predicction
+cd predict
 python predict.py [sentence]
 
 ## Built With
