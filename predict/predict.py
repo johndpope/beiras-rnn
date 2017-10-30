@@ -9,6 +9,7 @@ Files needed :
 """
 
 import sys
+sys.path.insert(0, '../aux/')
 from beiras_aux import load_coded_dictionaries, predict_next_chars, clean_text
 from keras.layers import Dense, Activation, GRU
 from keras.models import Sequential
@@ -46,7 +47,7 @@ def predict(sentence):
     """
     chars_to_indices, indices_to_chars = load_coded_dictionaries()
     model = create_gru_model(chars_to_indices)
-    model.load_weights('model_weights/best_beiras_gru_textdata_weights.hdf5')
+    model.load_weights('../model_weights/best_beiras_gru_textdata_weights.hdf5')
     return predict_next_chars(model, sentence, window_size, chars_to_indices, indices_to_chars)
 
 
