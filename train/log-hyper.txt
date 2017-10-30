@@ -1,0 +1,154 @@
+lr 0.001 RMSprot bacch 500
+{'loss': 1.8856480912124809}
+{'loss': 1.5159149537413128}
+{'loss': 1.4073919584454944}
+{'loss': 1.3486224536484486}
+{'loss': 1.3094326554866018}
+{'loss': 1.279066464343602}
+{'loss': 1.2552208486688996}
+{'loss': 1.2357716289049647}
+{'loss': 1.2178394735320353}
+{'loss': 1.2028643517917812}
+{'loss': 1.1899243716112327}
+{'loss': 1.1781832396275511}
+{'loss': 1.1669114485063763}
+{'loss': 1.1576712810486016}
+{'loss': 1.1481331920209183}
+{'loss': 1.140096642932503}
+{'loss': 1.1329066362100633}
+{'loss': 1.126045637787227}
+{'loss': 1.1195136155531769}
+{'loss': 1.1138635562421857}
+{'loss': 1.1081693267413761}
+{'loss': 1.1033159069429892}
+{'loss': 1.0981815903125156}
+{'loss': 1.0937989470593816}
+{'loss': 1.0893770364603701}
+{'loss': 1.0856384322604054}
+{'loss': 1.0817093766364625}
+{'loss': 1.0787886665975317}
+{'loss': 1.0754383368347891}
+{'loss': 1.0728527240894972}
+time :36258.88552549196
+pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran...to do colo do contente conte monte do do colo monto do conte monte do contras contos conte do conte 
+poema de rosalía titulado a xusticia pola man e dado á luz no seu libro follas novas por certo que s...e conteguo don monta do contra contos do contria do do conte do colo do contrición do contra do cont
+se moito cando dixen eu que as suas políticas agresoras do común cidadán matan e a sua cospedal alcu...nado do mesteza contro conto do contras do con monte do contro do do contorte do contes con contes d
+
+
+lr 0.01 RMSprot bacch 500
+{'loss': 3.1084780282844626}
+{'loss': 3.1022649213022482}
+{'loss': 3.1028325006837321}
+{'loss': 3.1026025588121704}
+{'loss': 3.1037778167100565}
+{'loss': 3.1039509364953339}
+{'loss': 3.1041815258377552}
+{'loss': 3.104400336082541}
+{'loss': 3.105068449319154}
+{'loss': 3.1045844463129826}
+{'loss': 3.1060130528388195}
+{'loss': 3.1049399872089629}
+{'loss': 3.1044802422841369}
+{'loss': 3.1042719931857001}
+{'loss': 3.1041225507603145}
+{'loss': 3.1046412648502355}
+{'loss': 3.1054325022586835}
+{'loss': 3.1052490983586116}
+{'loss': 3.1055696600199876}
+{'loss': 3.1050996915291194}
+{'loss': 3.1051571296078961}
+{'loss': 3.1051251028711078}
+{'loss': 3.1050379441098506}
+{'loss': 3.1057013420844739}
+{'loss': 3.1064275491301392}
+{'loss': 3.1051718410014799}
+{'loss': 3.1057379423656308}
+{'loss': 3.1066045854260325}
+{'loss': 3.1068695737323395}
+{'loss': 3.1063436235406807}
+time :36556.103860114
+pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran...                                                                                                    
+poema de rosalía titulado a xusticia pola man e dado á luz no seu libro follas novas por certo que s...                                                                                                    
+se moito cando dixen eu que as suas políticas agresoras do común cidadán matan e a sua cospedal alcu...                                                                                                    
+
+
+lr 0.1 RMSprot bacch 500
+{'loss': 14.44443206075354}
+{'loss': 14.460412674640185}
+{'loss': 14.460412675159953}
+{'loss': 14.46041267748266}
+{'loss': 14.460412650243638}
+{'loss': 14.460412678782076}
+{'loss': 14.460412682777783}
+{'loss': 14.460412662295727}
+{'loss': 14.460412639864549}
+{'loss': 14.460412683232578}
+{'loss': 14.460412681640792}
+{'loss': 14.460412658803547}
+{'loss': 14.460412682745297}
+{'loss': 14.460412678408494}
+{'loss': 14.460412679301843}
+{'loss': 14.460412666957385}
+{'loss': 14.460412698890547}
+{'loss': 14.460412670124713}
+{'loss': 14.460412659501982}
+{'loss': 14.460412691386416}
+{'loss': 14.460412641375122}
+{'loss': 14.460412676345669}
+{'loss': 14.46041266759085}
+{'loss': 14.46041266560924}
+{'loss': 14.460412668809054}
+{'loss': 14.460412664845833}
+{'loss': 14.460412650146182}
+{'loss': 14.460412691256476}
+{'loss': 14.460412660460301}
+{'loss': 14.460412653979462}
+time :37271.01389565796
+pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+poema de rosalía titulado a xusticia pola man e dado á luz no seu libro follas novas por certo que s...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+se moito cando dixen eu que as suas políticas agresoras do común cidadán matan e a sua cospedal alcu...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+
+lr 0.001 Adam bacch 500
+{'loss': 1.8779660864121932}
+{'loss': 1.494154898088188}
+{'loss': 1.3879119643062321}
+{'loss': 1.3310041284940424}
+{'loss': 1.293060716442221}
+{'loss': 1.2640703469895536}
+{'loss': 1.2402821196736857}
+{'loss': 1.220949715218143}
+{'loss': 1.2038249864067252}
+{'loss': 1.1890938100967663}
+{'loss': 1.1761482847787812}
+{'loss': 1.1641736705828563}
+{'loss': 1.1539249645635097}
+{'loss': 1.1443622467705212}
+{'loss': 1.1356254089854005}
+{'loss': 1.1277689161679765}
+{'loss': 1.1205464701257097}
+{'loss': 1.1136812299564083}
+{'loss': 1.1075264947934247}
+{'loss': 1.1021208616928042}
+{'loss': 1.0963394560144948}
+{'loss': 1.0912679274390309}
+{'loss': 1.0870967039156176}
+{'loss': 1.0828001336363189}
+{'loss': 1.078749640531995}
+{'loss': 1.074704660473579}
+{'loss': 1.0718517804442649}
+{'loss': 1.0678168053230206}
+{'loss': 1.0652431517328802}
+{'loss': 1.0614214515448079}
+time :36621.134075275004
+pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran... o seu proprio jean-paul sartre e de estado de construir a sua actividade e a democracia para o proc
+poema de rosalía titulado a xusticia pola man e dado á luz no seu libro follas novas por certo que s...e acaso non se está a ser de transformación de cartón de cada caso da consulta en toda a consulta en
+se moito cando dixen eu que as suas políticas agresoras do común cidadán matan e a sua cospedal alcu...mental do consello nacional da consulta en toda a consulta en toda a consulta en toda a consulta en 
+
+
+lr 0.001 RSProp bacch 32
+{'loss': 1.6810597060766816}
+{'loss': 1.4935519192424007}
+{'loss': 1.459758628582148}
+
+
