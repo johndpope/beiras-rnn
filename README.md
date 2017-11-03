@@ -39,7 +39,7 @@ The GAN implementation is based on [MNIST_CNN_GAN](https://github.com/osh/KerasG
 
 We develog a  Recurrent Neural Network (RNN) with TimeDistributed to create a Galician language sequence generator.
 
-** Get good result only using 100000 carazters for training, but it use a lot of memory **
+**Get good result only using 100000 carazters for training, but it use a lot of memory **
 
 
 ###  beiras-rnn-hyperparameters
