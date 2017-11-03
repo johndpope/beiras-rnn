@@ -28,13 +28,18 @@ def predict_one(text_predict,stub,window_size,number_chars,
     x_test = np.zeros((1,window_size, number_chars))
     for t, char in enumerate(text_predict):
         x_test[0, t, chars_to_indices[char]] = 1.
+    
     request = predict_pb2.PredictRequest() 
     request.model_spec.name = 'default' 
     request.model_spec.signature_name = 'predict' 
     request.inputs['inputs'].CopyFrom( 
         tf.contrib.util.make_tensor_proto(
             x_test,dtype='float32'))
-    result=stub.Predict(request)
+    try:
+        result=stub.Predict(request)
+    except Exception as inst:
+        print("Fail call tf-serving: " + str(inst))
+        sys.exit()     
     test_predict=np.array(result.outputs['outputs'].float_val)
     r = np.argmax(test_predict)  # predict class of each test input
     return (indices_to_chars[r])
