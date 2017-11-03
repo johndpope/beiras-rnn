@@ -63,7 +63,8 @@ It normally takes 10 hours to train the models in a g2.2xlarge AWS machine.
 ### predict-local.py
 Create the model using the weights and made prediction from the sentence introduce in the command line.
 
-
+### predict-server.py
+Make prediction from the sentence introduce in the command line using tensorflow-servin.
 
 
 ## Getting Started
@@ -71,11 +72,22 @@ Create the model using the weights and made prediction from the sentence introdu
 conda env create -f environment.yml
 ### Activate the env
 source activate beiras-rnn
+### Install tensorflow-model-server
+´´´sh
+echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | sudo tee /etc/apt/sources.list.d/tensorflow-serving.list
+curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install tensorflow-model-server
+´´´
+
 ### Lanch notebook
 jupyter notebook 
-### Make predicction
+### Make predicction local
 cd predict
-python predict.py [sentence]
+python predict-local.py [sentence]
+### Make predicction using tensorflow-server
+tensorflow_model_server --port=9000 --model_name=default --model_base_path=/home/aind2/beiras-rnn/export-tf &
+cd predict
+python predict-remote.py [sentence]
 
 ## Built With
 * [Keras](https://keras.io/)
