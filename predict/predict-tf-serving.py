@@ -1,8 +1,8 @@
 """
 Create a text sequence in Galician by continuing with the text entered in the command line.
-We use a GRU network and weigths learning using Beiras texts.
+We use a GRU model serving by tensorflow-serving
 
-Library needed: keras and tensorflow
+Library needed: tensorflow_serving,grpc and numpy
 Files needed :
     model_weights/best_beiras_gru_textdata_weights.hdf5 .- Network weights
     dictionaries.pkl .- Dictionaries to convert char to int and int to char using in learning.
@@ -24,32 +24,60 @@ window_size = 100
 
 def predict_one(text_predict,stub,window_size,number_chars,
                 chars_to_indices,indices_to_chars):
-    #print(text_predict)
+    """
+    Generate one charazter from text_predict
+    params:
+        text_predict .- Init text
+        stub .-PredictionServiceStub 
+        window_size .- Size window used by the model
+        number_chars .- Number of chars used in train
+        chars_to_indices .- Dictionary use for training
+        indiced_to_chars.- Dictionary use for training
+    return:
+        char next in secuence
+    """
+    # Create nu np input array fron text_predict
     x_test = np.zeros((1,window_size, number_chars))
     for t, char in enumerate(text_predict):
         x_test[0, t, chars_to_indices[char]] = 1.
     
+    # Request prepare
     request = predict_pb2.PredictRequest() 
     request.model_spec.name = 'default' 
     request.model_spec.signature_name = 'predict' 
     request.inputs['inputs'].CopyFrom( 
         tf.contrib.util.make_tensor_proto(
             x_test,dtype='float32'))
+    #Do the request
     try:
         result=stub.Predict(request)
     except Exception as inst:
         print("Fail call tf-serving: " + str(inst))
-        sys.exit()     
+        sys.exit()   
+    #Transform response array to char
     test_predict=np.array(result.outputs['outputs'].float_val)
     r = np.argmax(test_predict)  # predict class of each test input
     return (indices_to_chars[r])
 
 def predict_window(text_predict,number_predict,window_size):
+    """
+    Generate a secuence to continue text_predict of len number_predict
+    param:
+        text_predict .- Init text
+        number_predict .- Number chars to generate
+        window_size .- The same that used in trainig
+   return
+        text_predict + number_predict chars
+    """
+    #Get values used in trainig
     chars_to_indices, indices_to_chars = load_coded_dictionaries()
     number_chars=len(chars_to_indices)
+    # Clean input
     input_clean=clean_text(text_predict.lower())
+    # Get the stub
     channel = grpc.insecure_channel("localhost:" + str(9000))
     stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+    # Call the service n times
     for i in range(number_predict):
         d=predict_one(input_clean[i:],stub,window_size,number_chars,
                      chars_to_indices,indices_to_chars)
