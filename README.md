@@ -1,10 +1,15 @@
 # Beiras RNN. A Galician RRN text generator based on Beiras text
-In this notebook, we develog a Recurrent Neural Network (RNN) to create a Galician language sequence generator. In this project, we use text from the Galician politician Beiras.
+In this notebook, we develop a Recurrent Neural Network (RNN) to create a Galician language sequence generator. In this project, we use text from the Galician politician Beiras and keras for defining and training.
 
 This work is based in [aind2-rnn](https://github.com/udacity/aind2-rnn/blob/master/RNN_project.ipynb)
 
+We make sequences using the best of the last model:
+* In local, defining the model and loading the weights.
+* In remote, saving the model as a tensorflow model and using *tensorflow-serving*.
 
-## Description notebook for train (./train)
+
+
+## Notebook for train (./train)
 ### beiras-rnn
 
 In this notebook, we develog a Recurrent Neural Network (RNN) to create a Galician language sequence generator. In this project, we use text from the Galician politician Beiras. 
@@ -52,6 +57,13 @@ Change to Adam Optimizer: We get similar results than using RSMprop
 Reduce batch size from 500 to 32.- This increase the time and I could not finish the learning process.
 
 It normally takes 10 hours to train the models in a g2.2xlarge AWS machine.
+
+## Predict (./train)
+
+### predict-local.py
+Create the model using the weights and made prediction from the sentence introduce in the command line.
+
+
 
 
 ## Getting Started
