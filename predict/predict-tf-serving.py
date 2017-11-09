@@ -20,6 +20,8 @@ import numpy as np
 
 # Input size of the network, the entry text must have the same length
 window_size = 100
+IP="localhost:"
+#IP="35.161.205.226:"
 
 
 def predict_one(text_predict,stub,window_size,number_chars,
@@ -44,10 +46,12 @@ def predict_one(text_predict,stub,window_size,number_chars,
     # Request prepare
     request = predict_pb2.PredictRequest() 
     request.model_spec.name = 'default' 
-    request.model_spec.signature_name = 'predict' 
-    request.inputs['inputs'].CopyFrom( 
+    request.model_spec.signature_name = 'serving_default' 
+    request.inputs['sequence'].CopyFrom( 
+    #request.inputs['inputs'].CopyFrom( 
         tf.contrib.util.make_tensor_proto(
             x_test,dtype='float32'))
+    #print(request)
     #Do the request
     try:
         result=stub.Predict(request)
@@ -55,7 +59,10 @@ def predict_one(text_predict,stub,window_size,number_chars,
         print("Fail call tf-serving: " + str(inst))
         sys.exit()   
     #Transform response array to char
-    test_predict=np.array(result.outputs['outputs'].float_val)
+    #print(result)
+    test_predict=np.array(result.outputs["scores"].float_val)
+    #test_predict=np.array(result.outputs['outputs'].float_val)
+    
     r = np.argmax(test_predict)  # predict class of each test input
     return (indices_to_chars[r])
 
@@ -75,7 +82,7 @@ def predict_window(text_predict,number_predict,window_size):
     # Clean input
     input_clean=clean_text(text_predict.lower())
     # Get the stub
-    channel = grpc.insecure_channel("localhost:" + str(9000))
+    channel = grpc.insecure_channel(IP + str(9000))
     stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
     # Call the service n times
     for i in range(number_predict):
