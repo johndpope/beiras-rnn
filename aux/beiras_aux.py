@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Auxilar funcions for beiras_rnn
 There is 3 group of function
@@ -151,13 +152,13 @@ Functions to  save and load dictionaries
 
 
 def save_coded_dictionaries(l_chars_to_indices, l_indices_to_chars):
-    with open('../train/dictionaries.pkl', 'wb') as output:
-        pickle.dump(l_chars_to_indices, output, pickle.HIGHEST_PROTOCOL)
-        pickle.dump(l_indices_to_chars, output, pickle.HIGHEST_PROTOCOL)
+    with open('../train/dictionaries_0.pkl', 'wb') as output:
+        pickle.dump(l_chars_to_indices, output, protocol=0 )
+        pickle.dump(l_indices_to_chars, output, protocol=0)
 
 
 def load_coded_dictionaries():
-    with open('../train/dictionaries.pkl', 'rb') as output:
+    with open('../train/dictionaries_0.pkl', 'rb') as output:
         l_chars_to_indices = pickle.load(output)
         l_indices_to_chars = pickle.load(output)
     return l_chars_to_indices, l_indices_to_chars
@@ -189,9 +190,10 @@ if __name__ == "__main__":
     """
     window_size = 100
     step_size = 1
-    X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text('Beiras.txt', window_size, step_size)
+    X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text('../data/Beiras.txt', window_size, step_size)
     save_coded_dictionaries(chars_to_indices, indices_to_chars)
     chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
+    print(len(chars_to_indices_new))
     text_org = text_clean[:100]
     print(text_org)
     text_coded = encode_text(text_org, chars_to_indices)
