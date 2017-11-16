@@ -35,6 +35,7 @@ def predict_one(text_predict,service,model_name,window_size,chars_to_indices, in
     x_test=x_test[:window_size,:]
     #Prepare the request
     instances={'sequence':x_test.tolist()}
+    
     response = service.projects().predict(
         name=model_name,
         body={'instances': instances}
@@ -47,17 +48,15 @@ def predict_one(text_predict,service,model_name,window_size,chars_to_indices, in
 
 # Complete a sequence using the server
 def predict_window(text_predict,number_predict,window_size,lproject,lmodel,lversion):
-    
     # Get dictionaries
     chars_to_indices, indices_to_chars = load_coded_dictionaries()
-    # Clean the test
-    input_clean=clean_text(text_predict.lower())
     # Get stub
     service = googleapiclient.discovery.build('ml', 'v1')
     name = 'projects/{}/models/{}'.format(lproject, lmodel)
     if lversion is not None:
         name += '/versions/{}'.format(lversion)
     print(name)
+    input_clean=text_predict;
     # Call server for all charazters
     for i in range(number_predict):
         d=predict_one(input_clean[i:],service,name,window_size,chars_to_indices, indices_to_chars)
