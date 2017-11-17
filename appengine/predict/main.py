@@ -126,7 +126,7 @@ class BeirasRnn(webapp2.RequestHandler):
         logging.debug("Log 4 " +  input_string[:window_size] )
         return_string=predict(input_string[:window_size],predict_size,window_size)
         self.response.headers['Content-Type'] =  'application/json'	
-        self.response.write(json.dumps({"retorno" : return_string}))
+        self.response.write(json.dumps({"output" : return_string}))
 
 
 
