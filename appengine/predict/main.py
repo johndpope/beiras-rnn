@@ -108,12 +108,13 @@ def predict(sentence,number_predict,window_size):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
+        self.response.headers.add_header('Access-Control-Allow-Origin', '*')
         self.response.headers['Content-Type'] = 'text/plain'
         self.response.write('Hiola, World!')
 
 class BeirasRnn(webapp2.RequestHandler):
     def post(self):
-
+        self.response.headers.add_header('Access-Control-Allow-Origin', '*')
         json_request=json.loads(self.request.body)
         input_string = json_request["input"]
         input_string =clean_text(input_string.lower())

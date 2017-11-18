@@ -3,10 +3,25 @@
 </head>
 
 <html>
+
 <body>
+
 <div class="container">
-<span  id="title">Test Beiras Rnn</span>
-  
+<span  id="title">Test Beiras Rnns</span>
+<input type="text" size="65" maxlength="120" value="" id=text style="display: inline;">
+<button name="subject" type="submit" id="send">Beiras fala</button>
 </div>
+
+<script type="text/javascript">
+$( "#send" ).click(function() {
+  alert( "Handler for .click() called." + $("#text").val());
+  url = "http://ai-ml-dl.appspot.com/api/beiras_rnn"
+  data = {"input": $("#text").val()}
+  $.post( url, data);
+});
+</script>
+
+
 </body>
+
 </html>
