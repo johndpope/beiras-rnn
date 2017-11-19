@@ -105,11 +105,7 @@ def predict(sentence,number_predict,window_size):
     return predict_window(sentence,number_predict,window_size,project,model,version)
 
 
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers.add_header('Access-Control-Allow-Origin', '*')
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hiola, World!')
+
 
 class BeirasRnn(webapp2.RequestHandler):
     def post(self):
@@ -132,5 +128,5 @@ class BeirasRnn(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),('/api/beiras_rnn',BeirasRnn)
+    ('/api/beiras_rnn',BeirasRnn)
 ], debug=True)
