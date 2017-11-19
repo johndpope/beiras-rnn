@@ -14,12 +14,15 @@
 
 <script type="text/javascript">
 $( "#send" ).click(function() {
-  alert( "Handler for .click() called." + $("#text").val());
+  //alert( "Handler for .click() called." + $("#text").val());
   url = "https://ai-ml-dl.appspot.com/api/beiras_rnn"
   //url="http://localhost:8080/api/beiras_rnn"
   data = JSON.stringify({"input": $("#text").val()})
-  $.post( url, data);
+  $.post( url, data,
+  	function( data ) {alert( data.output );},
+  	 "json");
 });
+  
 </script>
 
 
