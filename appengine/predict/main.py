@@ -20,7 +20,6 @@ vendor.add('lib')
 import webapp2
 import json
 import logging
-import grpc
 import numpy as np
 import googleapiclient.discovery
 import re
@@ -73,7 +72,7 @@ def predict_one(text_predict,service,model_name,window_size,chars_to_indices, in
         raise RuntimeError(response['error'])
     test_predict=np.array(response['predictions'][0]['scores'])
     r = np.argmax(test_predict)  # predict class of each test input
-    logging.debug(str(test_predict) + " " + str(r) )
+    #logging.debug(str(test_predict) + " " + str(r) )
     return (indices_to_chars[r])
 
 # Complete a sequence using the server
@@ -115,6 +114,7 @@ class MainPage(webapp2.RequestHandler):
 class BeirasRnn(webapp2.RequestHandler):
     def post(self):
         self.response.headers.add_header('Access-Control-Allow-Origin', '*')
+        logging.debug("Log 1 " +  self.request.body)
         json_request=json.loads(self.request.body)
         input_string = json_request["input"]
         input_string =clean_text(input_string.lower())
