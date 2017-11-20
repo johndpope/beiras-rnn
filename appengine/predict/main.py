@@ -110,19 +110,40 @@ def predict(sentence,number_predict,window_size):
 class BeirasRnn(webapp2.RequestHandler):
     def post(self):
         self.response.headers.add_header('Access-Control-Allow-Origin', '*')
-        logging.debug("Log 1 " +  self.request.body)
-        json_request=json.loads(self.request.body)
-        input_string = json_request["input"]
-        input_string =clean_text(input_string.lower())
-        logging.debug("Log 3 " +  input_string )
-       
-        if (len (input_string)<window_size):
-            self.response.headers['Content-Type'] =  'application/json'	
-            self.response.write(json.dumps({"retorno" : "" , "error" : "No_lenght"}))
+        try:
+            json_request=json.loads(self.request.body)
+            input_string = json_request["input"]
+            input_string =clean_text(input_string.lower())
+        except Exception as inst:
+            self.response.headers['Content-Type'] =  'application/json'
+            self.response.write(json.dumps({"output" : "" , "error_code" : 1 }))
+            self.response.set_status(400)
+            logging.error("Input error 400 1" +  input_string[:window_size] )
+            logging.error("Error predict 400 1" +  str(type(inst)) )
+            logging.error("Error predict 400 1" +  str(inst.args) )
+            logging.error("Error predict 400 1" +  str(inst))
             return
-        logging.debug("Log 4 " +  input_string[:window_size] )
-        return_string=predict(input_string[:window_size],predict_size,window_size)
-        self.response.headers['Content-Type'] =  'application/json'	
+
+        if (len (input_string)<window_size):
+            self.response.headers['Content-Type'] =  'application/json'
+            self.response.write(json.dumps({"output" : "" , "error_code" : 2 }))
+            self.response.set_status(400)
+            logging.error("Input error 400 2" +  input_string[:window_size] )
+            return
+        logging.debug("Input " +  input_string[:window_size] )
+        try:
+            return_string=predict(input_string[:window_size],predict_size,window_size)
+        except Exception as inst:
+            self.response.headers['Content-Type'] =  'application/json'
+            self.response.write(json.dumps({"output" : "" , "error_code" : 1}))
+            self.response.set_status(500)
+            logging.error("Error predict 500 1" +  input_string[:window_size] )
+            logging.error("Error predict 500 1" +  str(type(inst)) )
+            logging.error("Error predict 500 1" +  str(inst.args) )
+            logging.error("Error predict 500 1" +  str(inst))
+            return
+
+        self.response.headers['Content-Type'] =  'application/json'
         self.response.write(json.dumps({"output" : return_string}))
 
 

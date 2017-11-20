@@ -30,11 +30,23 @@ def predict_window(text_predict,number_predict,window_size):
     # Call server for all charazters
 
     url = "http://ai-ml-dl.appspot.com/api/beiras_rnn"
+    #url = "http://localhost:8080/api/beiras_rnn"
     data = {"input": text_predict}
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     r = requests.post(url, data=json.dumps(data), headers=headers)
     if r.status_code == requests.codes.ok:
         return r.json()["output"]
+    else:
+        if r.status_code==400:
+            error_code=r.json()["error_code"]
+            #print("Error code" + str(error_code))
+            if error_code==2:
+                return ("Error in data lenght. Minimum length = 100");
+            return ("Error in data format");
+        if r.status_code==500:
+            return ("Error in server");
+        else:
+            return("Error " + str(r.json()))
     return ""
 
 
@@ -59,9 +71,9 @@ if __name__ == "__main__":
     input_sentence = clean_text(input_sentence.lower())
 
     # Control input sentence len
-    if len(input_sentence) < window_size:
-        print("Sentence must have ", window_size, len(input_sentence))
-        sys.exit(0)
+    #if len(input_sentence) < window_size:
+    #    print("Sentence must have ", window_size, len(input_sentence))
+    #    sys.exit(0)
     input_sentence = input_sentence[:window_size]
     # Predict
     predicted = predict(input_sentence,window_size,window_size)

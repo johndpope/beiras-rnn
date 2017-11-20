@@ -11,16 +11,36 @@
 <input type="text" size="65" maxlength="120" value="" id=text style="display: inline;">
 <button name="subject" type="submit" id="send">Beiras fala</button>
 </div>
+    
 
 <script type="text/javascript">
+function error_api(xhr){
+    if (xhr.status==500){
+        alert("Fail: Server Error");
+    }
+    else if (xhr.status==400){
+       if (JSON.parse(xhr.responseText).error_code==2){
+           alert("Error in data lenght. Minimum length = 100"); 
+       }
+       else {
+            alert("Fail: Input error"); 
+       }
+    }
+    else {
+       alert("Fail");  
+    }
+    
+}
+ 
 $( "#send" ).click(function() {
   //alert( "Handler for .click() called." + $("#text").val());
   url = "https://ai-ml-dl.appspot.com/api/beiras_rnn"
-  //url="http://localhost:8080/api/beiras_rnn"
+  //url="http://192.168.240.:8080/api/beiras_rnn"
   data = JSON.stringify({"input": $("#text").val()})
-  $.post( url, data,
-  	function( data ) {alert( data.output );},
-  	 "json");
+  $.post( url, data)
+  	.done(function( data ) {alert( data.output );})
+   .fail(function( xhr, status ) {error_api(xhr);})
+
 });
   
 </script>
