@@ -3,14 +3,17 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /jquery-3.2.1.min.js
-  static_files: jquery-3.2.1.min.js
-  upload: jquery-3.2.1.min.js
+
+- url: /assets
+  static_dir: assets
+
+- url: /images
+  static_dir: images
 
 
 - url: /api/beiras_rnn
   script: main.app
-  
+
 - url: /.*
   static_files: index.html
   upload: index.html

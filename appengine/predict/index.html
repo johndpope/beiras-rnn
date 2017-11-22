@@ -1,51 +1,123 @@
-<head>
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script> 
-</head>
-
+<!DOCTYPE HTML>
+<!--
+	Typify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
 <html>
+	<head>
+		<title>Beiras RNN</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
 
-<body>
+		<!-- Banner -->
+			<section id="banner">
+				<h2><strong>Beiras RNN</strong> A Galician RRN text generator based on Beiras text</h2>
+				<p>Brought to you by jotavaladouro</p>
+			</section>
 
-<div class="container">
-<span  id="title">Test Beiras Rnns</span>
-<input type="text" size="65" maxlength="120" value="" id=text style="display: inline;">
-<button name="subject" type="submit" id="send">Beiras fala</button>
-</div>
-    
+		<!-- One -->
+			<section id="one" class="wrapper special">
+				<div class="inner">
+					<header class="major">
+						<h2><a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn">Visit our  github.</a></h2>
+					</header>
+					<div class="features">
+						<div class="feature">
+							<i class="fa fa-diamond"></i>
+							<h3>Recurrent Neural Network (RNN)t</h3>
+							<p>We develop a Recurrent Neural Network (RNN) to create a Galician language sequence generato</p>
+						</div>
+						<div class="feature">
+							<i class="fa fa-copy"></i>
+							<h3>Test</h3>
+							<p>We test diferents RNN network:LSTM,GRU,GRU + Dropout.</p>
+						</div>
+						<div class="feature">
+							<i class="fa fa-paper-plane-o"></i>
+							<h3>Architecture</h3>
+							<p>Model deploy in Google Cloud ML and API hosted in  Google App Engine.</p>
+						</div>
+						<div class="feature">
+							<i class="fa fa-save"></i>
+							<h3>Code example</h3>
+							<p>How to use the model in local and how to deploy model in tensorflow-serving</p>
+						</div>
+						<div class="feature">
+							<i class="fa fa-envelope-o"></i>
+							<h3>Train</h3>
+							<p>Models developed in keras and trained in an AWS computer with GPU.</p>
+						</div>
+					</div>
+				</div>
+			</section>
 
-<script type="text/javascript">
-function error_api(xhr){
+		<!-- Two -->
+			<section id="two" class="wrapper style2 special">
+				<div class="inner narrow">
+					<header>
+						<h2>Test Beiras RNN sequence generator</h2>
+					</header>
+						<div class="form-control">
+							<label for="message">Write init text (min 100 letters)</label>
+							<textarea name="message" id="text" maxlength="120" rows="4"></textarea>
+						</div>
+						<ul class="actions">
+							<li><button  type="submit" id="send">Beiras fala</button></li>
+						</ul>
+
+				</div>
+			</section>
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					&copy; Untitled. Design: <a href="http://templated.co/">TEMPLATED</a>.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+            <script type="text/javascript">
+            function error_api(xhr){
     if (xhr.status==500){
         alert("Fail: Server Error");
     }
     else if (xhr.status==400){
        if (JSON.parse(xhr.responseText).error_code==2){
-           alert("Error in data lenght. Minimum length = 100"); 
+           alert("Error in data lenght. Minimum length = 100");
        }
        else {
-            alert("Fail: Input error"); 
+            alert("Fail: Input error");
        }
     }
     else {
-       alert("Fail");  
+       alert("Fail " + xhr.status + " " + status);
     }
-    
+
 }
- 
+
 $( "#send" ).click(function() {
   //alert( "Handler for .click() called." + $("#text").val());
   url = "https://ai-ml-dl.appspot.com/api/beiras_rnn"
   //url="http://192.168.240.:8080/api/beiras_rnn"
   data = JSON.stringify({"input": $("#text").val()})
   $.post( url, data)
-  	.done(function( data ) {alert( data.output );})
+    .done(function( data ) {alert( data.output );})
    .fail(function( xhr, status ) {error_api(xhr);})
 
 });
-  
-</script>
-
-
-</body>
-
+         </script>
+	</body>
 </html>
