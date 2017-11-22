@@ -14,6 +14,7 @@
 # limitations under the License.
 
 from google.appengine.ext import vendor
+from google.appengine.runtime import DeadlineExceededError
 # Add any libraries installed in the "lib" folder.
 vendor.add('lib')
 
@@ -61,7 +62,7 @@ def predict_one(text_predict,service,model_name,window_size,chars_to_indices, in
        x_test[t,chars_to_indices[char]] = 1.
     #print(x_test.shape)
     x_test=x_test[:window_size,:]
-    
+
     #Prepare the request
     instances={'sequence':x_test.tolist()}
     response = service.projects().predict(
@@ -77,7 +78,7 @@ def predict_one(text_predict,service,model_name,window_size,chars_to_indices, in
 
 # Complete a sequence using the server
 def predict_window(text_predict,number_predict,window_size,lproject,lmodel,lversion):
-    
+
     # Get dictionaries
     chars_to_indices, indices_to_chars = load_coded_dictionaries()
     # Get stub
@@ -88,10 +89,13 @@ def predict_window(text_predict,number_predict,window_size,lproject,lmodel,lvers
     print(name)
     input_clean=text_predict;
     # Call server for all charazters
-    for i in range(number_predict):
-        logging.debug("predict_window [" +  input_clean + "]")
-        d=predict_one(input_clean[i:],service,name,window_size,chars_to_indices, indices_to_chars)
-        input_clean+=d
+    try:
+        for i in range(number_predict):
+            logging.debug("predict_window [" +  input_clean + "]")
+            d=predict_one(input_clean[i:],service,name,window_size,chars_to_indices, indices_to_chars)
+            input_clean+=d
+    except   DeadlineExceededError:
+        logging.debug("DeadlineExceededError predict_window [" +  input_clean + "]")
     return input_clean
 
 def predict(sentence,number_predict,window_size):
