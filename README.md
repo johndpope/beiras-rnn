@@ -3,13 +3,12 @@
 In this project I explore all phase of a Deep Network   develops:
 
 *  First, we train different RNN, using different techniques and hyperparameter and we choose the best: 2 layer GRU + 1 Dense. We use *Keras* for this phase.
-* Train the network in an AWS machine and test different variants and hyperparameters.
-* Use the network in local in python.
+* Use the network to generate sequences in local with python.
 * Translate the network and weight to *TensorFlow* and save.
 * Deploy using *tensorflow-serving* and get predictions using python.
-* Deploy in *Google Cloud ML* and get with python (you need to be authorized).
-* Serve predictions using a Rest API in *Google App Engine* and get with python.
-* Deploy a Web Page in Google App Engine that uses the API.
+* Deploy in *Google Cloud ML* and get sequences with python (you need and authorized google account).
+* Serve predictions using a REST API in *Google App Engine* and get sequences with python.
+* Deploy a Web Page in Google App Engine that uses this. API.
 
 We use text from the Galician politician Beiras and keras for defining and training.
 
@@ -105,11 +104,7 @@ tensorflow_model_server --port=9000 --model_name=default --model_base_path=/home
 cd predict
 python predict-remote.py [sentence]
 ```
-### Google deploy
-```sh
-conda env create -f google-cloud-ml.yml
 
-```
 
 
 ## Built With
