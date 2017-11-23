@@ -5,31 +5,29 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <html>
-<html lang="en">
-
+<html lang="gl">
 	<head>
 		<title>Beiras RNN</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="alternate" hreflang="gl" href="index-gal.html">
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
+	     <link rel="alternate" hreflang="en" href="index.html">
+    </head>
 	<body>
+
+		<!-- Banner -->
             <section id="language" >
                 <div class="inner narrow" align="right">
-                    <a  hreflang="gl" href="index-gal.html">Galego</a>
+                    <a  hreflang="en" href="index.html">English</a>
                 </div>
             </section>
-		<!-- Banner -->
-
 			<section id="banner">
-				<h2><strong>Beiras RNN</strong> A Galician RRN text generator based on Beiras text</h2>
-				<p>Brought to you by jotavaladouro</p>
-
+				<h2><strong>Beiras RNN</strong> Unha RNN que xera texto en galego aprendido dos textos de beiras</h2>
+				<p>Feito por jotavaladouro</p>
                 <ul class="actions">
-                    <li><a href="#try" class="button special">Try Beiras RNN</a></li>
+                    <li><a href="#try" class="button special">Proba Beiras RNN</a></li>
                 </ul>
 			</section>
 
@@ -37,38 +35,38 @@
 			<section id="one" class="wrapper special">
 				<div class="inner">
 					<header class="major">
-						<h2><a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn">Visit the  repository.</a></h2>
+						<h2><a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn">Visita o repositorio</a></h2>
 					</header>
 					<div class="features">
 						<div class="feature">
 							<i class="fa fa-diamond"></i>
-							<h3>Recurrent Neural Network (RNN)t</h3>
-							<p>We develop a Recurrent Neural Network (RNN) to create a Galician language sequence generator</p>
-                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/"> repository</a>
+							<h3>Recurrent Neural Network (RNN)</h3>
+							<p>Desenrolamos unha Recurrent Neural Network (RNN) para crear un xerador de secuencias en galego</p>
+                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/"> repositorio </a>
 						</div>
 						<div class="feature">
 							<i class="fa fa-copy"></i>
-							<h3>Train</h3>
-							<p>We test diferents RNN network:LSTM,GRU,GRU + Dropout.</p>
-                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/train"> repository</a>
+							<h3>Entreno</h3>
+							<p>Probamos varios tipos de RNN:LSTM,GRU,GRU + Dropout.</p>
+                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/train"> repositorio</a>
 						</div>
 						<div class="feature">
 							<i class="fa fa-paper-plane-o"></i>
-							<h3>Deploy Google</h3>
-							<p>Model deploy in Google Cloud ML and API hosted in  Google App Engine.</p>
-                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/appengine"> repository</a>
+							<h3>Desplegado en  Google</h3>
+							<p>Modelo desplegado en Google Cloud ML e API aloxada in  Google App Engine.</p>
+                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/appengine"> repositorio</a>
 						</div>
 						<div class="feature">
 							<i class="fa fa-save"></i>
-							<h3>Model deploy</h3>
-							<p>How to use the model in local and how to deploy model in tensorflow-serving</p>
-                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/predict"> repository</a>
+							<h3>Modelo desplegado</h3>
+							<p>Como usar o modelo en local e como servilo empregando tensorflow-serving</p>
+                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/tree/master/predict"> repositorio</a>
 						</div>
 						<div class="feature">
 							<i class="fa fa-envelope-o"></i>
 							<h3>Train</h3>
-							<p>Models developed in Geras and trained in an AWS computer with GPU.</p>
-                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/"> repository</a>
+							<p>Modelo desenrolado en Keras e entrenado nunha computadora de  AWS con GPU.</p>
+                            <a target="_blank" href="https://github.com/jotavaladouro/beiras-rnn/"> repositorio</a>
 						</div>
 					</div>
 				</div>
@@ -78,14 +76,14 @@
 			<section id="try" class="wrapper style2 special">
 				<div class="inner narrow">
 					<header>
-						<h2>Test Beiras RNN sequence generator</h2>
+						<h2>Proba o xerador de secuencias Beiras RNN</h2>
 					</header>
 						<div class="form-control">
-							<label for="message">Write init text (min 100 letters).It takes a minute</label>
+							<label for="message">Escribe o texto inicial (min 100 letters).Levalle 1 minuto xerar a secuencia</label>
 							<textarea name="message" id="text" maxlength="120" rows="4"></textarea>
 						</div>
 						<ul class="actions">
-							<li><button  type="submit" id="send">Beiras said</button></li>
+							<li><button  type="submit" id="send">Beiras di</button></li>
 						</ul>
                         <div  id="output" class="form-control" style="visibility:hidden">
                             <textarea name="message2" id="text_output" maxlength="120" rows="4"></textarea>
@@ -113,7 +111,6 @@
 function error_api(xhr){
     document.getElementById('output').style.visibility='hidden'
     $( "#send" ).disabled = false
-    document.getElementById("send").style.visibility='visible'
     if (xhr.status==500){
         alert("Fail: Server Error");
     }
@@ -132,16 +129,17 @@ function error_api(xhr){
 }
 
 function ok_api(data){
-    textarea_output.value = "Beiras said: " +data.output;
+    textarea_output.value = "Beiras di: " +data.output;
     $( "#send" ).disabled = false
     document.getElementById("send").style.visibility='visible'
 
 }
 
+
 $( "#send" ).click(function() {
   //alert( "Handler for .click() called." + $("#text").val());
   url = "https://ai-ml-dl.appspot.com/api/beiras_rnn"
-  //url="http://192.168.240.:8080/api/beiras_rnn"
+  //url="http://192.168.240.:8080/api/beiras_rnn"document.getElementById('output').style.visibility='visible'
   document.getElementById('output').style.visibility='visible'
   textarea_output=document.getElementById("text_output")
   textarea_output.value = "Generating, wait a minute"
@@ -154,6 +152,6 @@ $( "#send" ).click(function() {
    .fail(function( xhr, status ) {error_api(xhr);})
 
 });
-</script>
+         </script>
 	</body>
 </html>

@@ -10,9 +10,12 @@ handlers:
 - url: /images
   static_dir: images
 
-
 - url: /api/beiras_rnn
   script: main.app
+
+- url: /index-gal.html
+  static_files: index-gal.html
+  upload: index-gal.html
 
 - url: /.*
   static_files: index.html
