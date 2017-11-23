@@ -136,6 +136,9 @@ function ok_api(data){
     $( "#send" ).disabled = false
     document.getElementById("send").style.visibility='visible'
 
+    document.getElementById("text_output").style.color = "red";;
+
+
 }
 
 $( "#send" ).click(function() {
@@ -145,6 +148,7 @@ $( "#send" ).click(function() {
   document.getElementById('output').style.visibility='visible'
   textarea_output=document.getElementById("text_output")
   textarea_output.value = "Generating, wait a minute"
+  textarea_output.style.color = "blue";;
   textarea_output.disabled = true
   data = JSON.stringify({"input": $("#text").val()})
   $( "#send" ).disabled = true

@@ -132,6 +132,7 @@ function ok_api(data){
     textarea_output.value = "Beiras di: " +data.output;
     $( "#send" ).disabled = false
     document.getElementById("send").style.visibility='visible'
+    document.getElementById("text_output").style.color = "red";;
 
 }
 
@@ -144,6 +145,7 @@ $( "#send" ).click(function() {
   textarea_output=document.getElementById("text_output")
   textarea_output.value = "Generating, wait a minute"
   textarea_output.disabled = true
+  textarea_output.style.color = "blue";;
   data = JSON.stringify({"input": $("#text").val()})
   $( "#send" ).disabled = true
   document.getElementById("send").style.visibility='hidden'
