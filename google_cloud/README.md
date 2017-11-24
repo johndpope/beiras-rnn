@@ -1,6 +1,6 @@
 # Deploy model in Google Cloud ML, Create an API and a Web for Beiras RNN
 
-First ee deploy our model to Google Cloud ML, and work with in python.
+First we deploy our model to Google Cloud ML, and work with in python.
 
 Then we develop a REST API to deploy our RNN Model, we use Google App Engine to server this API and create a web page to test it.
 
@@ -8,7 +8,7 @@ We use python2.7 for this part, beucase it is used bu Google Cloud.
 
 ## Instalation
 
-### Intall gloud and libs
+### Install gcloud and libs
 ```sh
 apt-get install curl
 # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
@@ -86,7 +86,7 @@ python predict-google-cloud-ml.py se moito cando dixen eu que as suas políticas
 
 
 ### Lib needed in app engine
-The python library that you need to use in the App Engine  must be in lib dir
+The python libraries that you need to use in the App Engine  must be in lib dir
 
 ```sh
 source activate google-cloud-ml
