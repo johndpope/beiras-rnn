@@ -24,7 +24,7 @@ def window_transform_text(text, l_window_size, l_step_size):
         text .- text to windownize
         l_windows_size .- Len of any input sentence to return
     Return:
-        input .- array of sentence 
+        input .- array of sentence
         output .- for any sentence in input, the next charazter
     """
     # containers for input/output pairs
@@ -72,7 +72,10 @@ def clean_text(l_text_org):
     for line in l_text_org.splitlines():
         if not regexp.search(line):
             text_without_source = text_without_source + line
-    l_text_clean = re.sub('[ºªàâäçèêïìôöü&%@•…«»”“*/!"(),.:;_¿¡¿‘’´\[\]\']', ' ', text_without_source)
+    l_text_clean = re.sub(
+        '[ºªàâäçèêïìôöü&%@•…«»”“*/!"(),.:;_¿¡¿‘’´\[\]\']',
+        ' ', text_without_source
+        )
     l_text_clean = l_text_clean.replace("  ", " ")
     return l_text_clean
 
@@ -84,12 +87,19 @@ def load_text(sz_file, l_window_size, l_step_size):
     l_text_org = open(sz_file, encoding="utf-8").read().lower()
     l_text_clean = clean_text(l_text_org)
     l_chars = sorted(list(set(l_text_clean)))
-    # this dictionary is a function mapping each unique character to a unique integer
+    # this dictionary is a function mapping each unique character
+    # to a unique integer
     l_chars_to_indices = dict((c, i) for i, c in enumerate(l_chars))
-    # this dictionary is a function mapping each unique integer back to a unique character
+    # this dictionary is a function mapping each unique integer
+    # back to a unique character
     l_indices_to_chars = dict((i, c) for i, c in enumerate(l_chars))
-    X_return, y_return = encode_io_pairs(l_text_clean, l_window_size, l_step_size, l_chars_to_indices)
-    return X_return, y_return, l_chars, l_chars_to_indices, l_indices_to_chars, l_text_clean
+    X_return, y_return = encode_io_pairs(
+        l_text_clean, l_window_size, l_step_size, l_chars_to_indices
+        )
+    return (
+        X_return, y_return, l_chars, l_chars_to_indices,
+        l_indices_to_chars, l_text_clean
+        )
 
 
 """
@@ -97,16 +107,20 @@ Functions to create a text sequence.
 """
 
 
-def predict_next_chars(model, input_chars, l_window_size, l_chars_to_indices, l_indices_to_chars):
+def predict_next_chars(
+                model, input_chars, l_window_size, l_chars_to_indices,
+                l_indices_to_chars):
     """
-    Predict next l_window_size character from a sentence using a model l_chars_to_indices and indices to chars are
-    dictionaries uses to translate char in index.    Must be the same that used in training the model.
+    Predict next l_window_size character from a sentence using a model
+    l_chars_to_indices and indices to chars are dictionaries uses
+    to translate char in index.
+    They must be the same that used in training the model.
     """
     # create output
     number_chars = len(l_chars_to_indices)
     predicted_chars = ''
     for i in range(l_window_size):
-        # convert this round's predicted characters to numerical input    
+        # convert this round's predicted characters to numerical input
         x_test = np.zeros((1, l_window_size, number_chars))
         for t, char in enumerate(input_chars):
             x_test[0, t, l_chars_to_indices[char]] = 1.
@@ -125,11 +139,14 @@ def predict_next_chars(model, input_chars, l_window_size, l_chars_to_indices, l_
     return predicted_chars
 
 
-def print_predicctions(model, weights_file, l_chars_to_indices, l_indices_to_chars,
-                       l_text_clean, l_window_size):
+def print_predicctions(
+                    model, weights_file, l_chars_to_indices,
+                    l_indices_to_chars, l_text_clean, l_window_size
+                    ):
     """
-    Print predicctions for sentence beginning in position 100,1000 and 5000 of l_text_clean l_chars_to_indices and
-    indices to chars are dictionaries uses to translate char in index. Must be the same that used in training the
+    Print predicctions for sentence beginning in position 100,1000 and 5000
+    of l_text_clean l_chars_to_indices and indices to chars are dictionaries
+    uses to translate char in index. Must be the same that used in training the
     model.
     """
     start_inds = [100, 1000, 5000]
@@ -141,19 +158,22 @@ def print_predicctions(model, weights_file, l_chars_to_indices, l_indices_to_cha
         input_chars = l_text_clean[start_index: start_index + l_window_size]
 
         # use the prediction function
-        predict_input = predict_next_chars(model, input_chars, l_window_size, l_chars_to_indices, l_indices_to_chars)
+        predict_input = predict_next_chars(
+            model, input_chars, l_window_size,
+            l_chars_to_indices, l_indices_to_chars
+            )
 
         print(input_chars + "...." + predict_input)
 
 
 """
-Functions to  save and load dictionaries        
+Functions to  save and load dictionaries
 """
 
 
 def save_coded_dictionaries(l_chars_to_indices, l_indices_to_chars):
     with open('../train/dictionaries_0.pkl', 'wb') as output:
-        pickle.dump(l_chars_to_indices, output, protocol=0 )
+        pickle.dump(l_chars_to_indices, output, protocol=0)
         pickle.dump(l_indices_to_chars, output, protocol=0)
 
 
@@ -186,11 +206,13 @@ def decode_text(l_text_coded, l_indices_to_chars):
 
 if __name__ == "__main__":
     """
-    Test the functions to  save and load dictionaries  
+    Test the functions to  save and load dictionaries
     """
     window_size = 100
     step_size = 1
-    X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text('../data/Beiras.txt', window_size, step_size)
+    X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text(
+        '../data/Beiras.txt', window_size, step_size
+        )
     save_coded_dictionaries(chars_to_indices, indices_to_chars)
     chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
     print(len(chars_to_indices_new))
