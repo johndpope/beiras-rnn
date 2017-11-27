@@ -118,7 +118,7 @@ curl http://ai-ml-dl.appspot.com/api/beiras_rnn -H "Content-Type: application/js
 [beiras Rnn page](http://ai-ml-dl.appspot.com/index.html)
 
 ### Api description
-* URL : http://localhost:8080/api/beiras_rnn
+* URL : http://ai-ml-dl.appspot.com/api/beiras_rnn
 * Method: POST
 * Data Params
     * Required : input=[string]
