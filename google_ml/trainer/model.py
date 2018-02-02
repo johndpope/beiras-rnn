@@ -22,18 +22,17 @@ from tensorflow.contrib.session_bundle import exporter
 
 
 def model_fn(number_chars,learning_rate=0.001,window_size = 100):
-    num_chars = len(number_chars)
     model = Sequential()
     # 1 Layer .- GRU layer 1 should be an GRU module with 200 hidden units
     model.add(GRU(
-                    200, input_shape=(window_size, num_chars),
+                    200, input_shape=(window_size, number_chars),
                     return_sequences=True
                 )
             )
     # 2 Layer .- GRU layer 2 should be an GRU module with 200 hidden units
     model.add(GRU(200))
     # 2 Layer .-  Dense, with number chars unit and softmax activation
-    model.add(Dense(num_chars, activation='softmax'))
+    model.add(Dense(number_chars, activation='softmax'))
     compile_model(model, learning_rate)
     return model
 
@@ -49,10 +48,14 @@ def compile_model(model, learning_rate):
 def to_savedmodel(model, export_path):
   """Convert the Keras HDF5 model into TensorFlow SavedModel."""
 
+  #TensorFlow serving expects you to point to a base directory which includes a version subdirectory.
+  # We create it when we are in local
+  if not export_path.startswith("gs://"):
+      export_path=export_path + "/2"
   builder = saved_model_builder.SavedModelBuilder(export_path)
 
   signature = predict_signature_def(inputs={'input': model.inputs[0]},
-                                    outputs={'income': model.outputs[0]})
+                                    outputs={'sequence': model.outputs[0]})
 
   with K.get_session() as sess:
     builder.add_meta_graph_and_variables(
@@ -64,7 +67,20 @@ def to_savedmodel(model, export_path):
     builder.save()
 
 
-def generator_input(input_file, chunk_size,window_size):
+def input_to_matrix(inputs,num_chars,col_label):
+    label = inputs.pop(col_label)
+    x_matrix = np.zeros((inputs.shape[0], inputs.shape[1], num_chars), dtype=np.bool)
+    y_matrix = np.zeros((len(inputs), num_chars), dtype=np.bool)
+
+    for i, sentence in enumerate(inputs):
+        for t, char in enumerate(sentence):
+            x_matrix[i, t, int(char)] = 1
+        y_matrix[i, int(label[i])] = 1
+    return x_matrix,y_matrix
+
+
+
+def generator_input(input_file, chunk_size,window_size,num_chars):
   """Generator function to produce features and labels
      needed by keras fit_generator.
   """
@@ -76,6 +92,10 @@ def generator_input(input_file, chunk_size,window_size):
                              names=col)
 
   for input_data in input_reader:
-    label = input_data.pop(col[window_size])
     n_rows = input_data.shape[0]
-    return ( (input_data.iloc[[index % n_rows]], label.iloc[[index % n_rows]]) for index in itertools.count() )
+    x,y=input_to_matrix(input_data,num_chars,col[window_size])
+    #GRU in keras need to have a shape N,window_len,input.shape
+    return ((np.reshape(x[index % n_rows],(1,x.shape[1],x.shape[2])), np.reshape(y[index % n_rows],(1,y.shape[1]))) for index in
+            itertools.count())
+
+

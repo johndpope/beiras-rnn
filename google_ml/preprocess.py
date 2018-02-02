@@ -24,16 +24,21 @@ import codecs
 
 
 
-CHUCK=1000
+
 WINDOW_SIZE = 100
 STEP_SIZE = 1
 FILE_OUTPUT_TRAIN= "data/beiras_train.csv"
 FILE_OUTPUT_TEST= "data/beiras_test.csv"
 PERCENT_TRAIN=0.8
 
-def load_text_clean(sz_file, l_window_size, l_step_size,l_char_to_index):
+def load_text_clean(sz_file, l_char_to_index):
     """
-    Load a text, clean it and windownize
+    Load a text, clean
+    :param sz_file : path to input file, a text file
+    :param l_window_size= int size of text window to use
+    :param l_step_size
+    :param l_char_to_index dictionaty to convert char to integer
+    :return: String with the text clean
     """
     l_text_org = codecs.open(sz_file, encoding="utf-8").read().lower()
     l_text_clean = clean_text(l_text_org)
@@ -41,7 +46,6 @@ def load_text_clean(sz_file, l_window_size, l_step_size,l_char_to_index):
     while change:
         change=False;
         chars_text = sorted(list(set(l_text_clean)))
-        chars_dict = sorted(list(set(l_char_to_index.keys())))
         for i,char in enumerate(chars_text):
             if not change:
                 if char not in l_char_to_index.keys():
@@ -51,6 +55,13 @@ def load_text_clean(sz_file, l_window_size, l_step_size,l_char_to_index):
 
 
 def text_array_to_csv(text_array,csv_file,l_char_to_index):
+    """
+    Save a array to csv file
+    :param text_array: array text to save
+    :param csv_file: file to generate
+    :param l_char_to_index: dictionaty to convert char to index
+    :return: None
+    """
     with open(csv_file, 'w') as file:
         writer = csv.writer(file, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -61,9 +72,21 @@ def text_array_to_csv(text_array,csv_file,l_char_to_index):
             writer.writerow(X)
 
 def text_to_csv(text,csv_file_train,csv_file_test,l_char_to_index,percent_test):
+    """
+    From a text, generate the csv_file_train,csv_file_test
+    :param text: Text to convert
+    :param csv_file_train:  File for train
+    :param csv_file_test:  File for text
+    :param l_char_to_index: dictionaty to convert char to index
+    :param percent_test:  Percent to use as text
+    :return:  None
+    """
+
+    # inputs:List of sentences of size WINDOW_SIZE+1
+    # outputs: List of chars, being the char ith the next char to sentence inputs[ith]
     inputs, outputs = window_transform_text(text, WINDOW_SIZE + 1, STEP_SIZE)
     train_size=int(percent_test * len(inputs))
-    print("Train " + str(train_size))
+
     text_array_to_csv(inputs[:train_size], csv_file_train, l_char_to_index)
     text_array_to_csv(inputs[train_size:], csv_file_test, l_char_to_index)
 
@@ -79,31 +102,24 @@ def csv_to_text(csv_file,index_to_char):
             text.append(sentence)
     return text
 
-def csv_to_pandas(csv_file):
-    input_reader = pd.read_csv(tf.gfile.Open(csv_file),
-                               chunksize=100)
-    for input_data in input_reader:
+
 
 
 if __name__ == "__main__":
     """
-    Test the functions to  save and load dictionaries
+    Generate FILE_OUTPUT_TRAIN and FILE_OUTPUT_TEST from  '../data/Beiras.txt'
     """
 
-
+    #Load dictionaries to convert char to index and index to char
     chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
 
-
-    text_clean = load_text_clean('../data/Beiras.txt',WINDOW_SIZE +1 ,
-                                STEP_SIZE,chars_to_indices_new )
-
-
-    chars_text = sorted(list(set(text_clean)))
-    chars_dict = sorted(list(set(chars_to_indices_new.keys())))
-
-
+    # Get String with clean text
+    text_clean = load_text_clean('../data/Beiras.txt',chars_to_indices_new )
+    #Generate files
     text_to_csv(text_clean, FILE_OUTPUT_TRAIN,FILE_OUTPUT_TEST,chars_to_indices_new,PERCENT_TRAIN)
 
+
+    # For test, read the file and test
     text_read=csv_to_text(FILE_OUTPUT_TRAIN, indices_to_chars_new)
     for sentence in text_read:
         print(sentence)

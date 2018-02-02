@@ -145,5 +145,6 @@ def generator_input(input_file, chunk_size):
     label = pd.get_dummies(input_data.pop(LABEL_COLUMN))
 
     input_data = to_numeric_features(input_data)
+
     n_rows = input_data.shape[0]
     return ( (input_data.iloc[[index % n_rows]], label.iloc[[index % n_rows]]) for index in itertools.count() )
