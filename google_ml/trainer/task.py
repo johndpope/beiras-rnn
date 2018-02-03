@@ -14,8 +14,8 @@ WINDOWS_SIZE = 100
 NUM_CHARS = 55
 FILE_PATH = 'checkpoint.{epoch:02d}.hdf5'
 BEIRAS_MODEL = 'beiras.hdf5'
-CHUNK_SIZE = 5000
-
+#CHUNK_SIZE = 5000
+CHUNK_SIZE = None
 
 class ContinuousEval(keras.callbacks.Callback):
   """Continuous eval callback to evaluate the checkpoint once

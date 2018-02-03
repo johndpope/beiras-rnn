@@ -39,6 +39,21 @@ python predict-tf-serving.py  pla panfletaria contra as leoninas taxas impostas 
 ```
 pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneranaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
+BUCKET_NAME="beiras_rnn_mlengine"
+REGION=us-central1
+gsutil mb -l $REGION gs://$BUCKET_NAME
+gsutil cp -r data/* gs://$BUCKET_NAME/data
+TRAIN_DATA=gs://$BUCKET_NAME/data/beiras_train.csv
+TEST_DATA=gs://$BUCKET_NAME/data/beiras_test.csv
+ JOB_NAME=beiras_rnn_single_1
+ OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
+
+
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/     --region $REGION     --     --train-files $TRAIN_DATA     --eval-files $TEST_DATA     --train-steps 1000     --eval-steps 100     --verbosity DEBUG
+
+
+gcloud ml-engine jobs stream-logs $JOB_NAME
+gsutil ls -r $OUTPUT_PATH
 
 
 
