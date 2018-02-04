@@ -61,6 +61,9 @@ gsutil ls -r $OUTPUT_PATH
 
 Train normal : 1 epoch : 10h and not fihish
 
+Train gpu
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/     --region $REGION  --config config.yaml   --     --train-files $TRAIN_DATA     --eval-files $EVAL_DATA     --train-steps 939066     --eval-steps 100     --verbosity DEBUG
+
 
 
 
