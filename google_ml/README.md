@@ -59,6 +59,8 @@ gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     -
 gcloud ml-engine jobs stream-logs $JOB_NAME
 gsutil ls -r $OUTPUT_PATH
 
+Train normal : 1 epoch : 10h and not fihish
+
 
 
 
