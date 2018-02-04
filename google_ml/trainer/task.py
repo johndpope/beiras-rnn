@@ -14,7 +14,9 @@ WINDOWS_SIZE = 100
 NUM_CHARS = 55
 FILE_PATH = 'checkpoint.{epoch:02d}.hdf5'
 BEIRAS_MODEL = 'beiras.hdf5'
+# In local, use a value to be able to load train data in memory
 #CHUNK_SIZE = 5000
+# In Cloud, use this value
 CHUNK_SIZE = None
 
 class ContinuousEval(keras.callbacks.Callback):
@@ -202,6 +204,7 @@ if __name__ == "__main__":
                       type=int,
                       default=5,
                       help='Checkpoint per n training epochs')
+
 
   parse_args, unknown = parser.parse_known_args()
 
