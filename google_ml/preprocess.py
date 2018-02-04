@@ -28,7 +28,7 @@ import codecs
 WINDOW_SIZE = 100
 STEP_SIZE = 1
 FILE_OUTPUT_TRAIN= "data/beiras_train.csv"
-FILE_OUTPUT_TEST= "data/beiras_test.csv"
+FILE_OUTPUT_TEST= "data/beiras_eval.csv"
 PERCENT_TRAIN=0.8
 
 def load_text_clean(sz_file, l_char_to_index):
