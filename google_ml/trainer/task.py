@@ -50,7 +50,7 @@ class ContinuousEval(keras.callbacks.Callback):
         checkpoints.sort()
         beiras_model = load_model(checkpoints[-1])
         beiras_model = model.compile_model(beiras_model, self.learning_rate)
-        x_eval, y_eval = model.get_array_x_y(eval_files, CHUNK_SIZE, WINDOWS_SIZE, NUM_CHARS)
+        x_eval, y_eval = model.get_array_x_y(self.eval_files, CHUNK_SIZE, WINDOWS_SIZE, NUM_CHARS)
         loss, acc =beiras_model.evaluate(x_eval,y_eval,steps=self.steps)
         print '\nEvaluation epoch[{}] metrics[{:.2f}, {:.2f}] {}'.format(
             epoch, loss, acc, beiras_model.metrics_names)
@@ -173,6 +173,7 @@ if __name__ == "__main__":
                       help='Learning rate for SGD')
   parser.add_argument('--eval-frequency',
                       default=10,
+                      type=int,
                       help='Perform one evaluation per n epochs')
   parser.add_argument('--first-layer-size',
                      type=int,

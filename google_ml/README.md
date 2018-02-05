@@ -59,11 +59,11 @@ BUCKET_NAME="beiras_rnn_mlengine"
 REGION=us-central1
 TRAIN_FILE=gs://$BUCKET_NAME/data/beiras_train.csv
 EVAL_FILE=gs://$BUCKET_NAME/data/beiras_eval.csv
-JOB_NAME=beiras_rnn_single_12
+JOB_NAME=beiras_rnn_single_16
 OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
 
 
-gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE     --train-steps 1000     --eval-steps 100     --verbosity DEBUG
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE     --train-steps 1000     --eval-steps 100     --verbosity DEBUG --eval-frequency 2
 
 
 gcloud ml-engine jobs stream-logs $JOB_NAME
