@@ -15,15 +15,21 @@ We first train in local to test the code
 * You need an __init__.py in trainer for modele work. 
 * Train in local and lanch tensorboard
 ```sh
+TRAIN_FILE=./data/beiras_train.csv
+EVAL_FILE=./data/beiras_eval.csv
+MODEL_DIR=./output
 
-gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR -- --train-file $TRAIN_FILE --eval-files $EVAL_FILE --train-steps 1000 --eval-steps 100
+rm -rf $MODEL_DIR
+
+
+gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR -- --train-file $TRAIN_FILE --eval-files $EVAL_FILE  --eval-steps 100
 
 tensorboard --logdir=output --port=8080
 ```
 * Train in local in distributed mode
 ```sh
-TRAIN_DATA=./data/beiras_train.csv
-EVAL_DATA=./data/beiras_eval.csv
+TRAIN_FILE=./data/beiras_train.csv
+EVAL_FILE=./data/beiras_eval.csv
 MODEL_DIR=./output
 gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR --distributed -- --train-file $TRAIN_FILE --eval-files $EVAL_FILE --train-steps 1000 --eval-steps 100
 tensorboard --logdir=output --port=8080
@@ -47,23 +53,32 @@ BUCKET_NAME="beiras_rnn_mlengine"
 REGION=us-central1
 gsutil mb -l $REGION gs://$BUCKET_NAME
 gsutil cp -r data/* gs://$BUCKET_NAME/data
-TRAIN_DATA=gs://$BUCKET_NAME/data/beiras_train.csv
-EVAL_DATA=gs://$BUCKET_NAME/data/beiras_eval.csv
- JOB_NAME=beiras_rnn_single_5
- OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
 
 
-gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/     --region $REGION     --     --train-files $TRAIN_DATA     --eval-files $EVAL_DATA     --train-steps 1000     --eval-steps 100     --verbosity DEBUG
+BUCKET_NAME="beiras_rnn_mlengine"
+REGION=us-central1
+TRAIN_FILE=gs://$BUCKET_NAME/data/beiras_train.csv
+EVAL_FILE=gs://$BUCKET_NAME/data/beiras_eval.csv
+JOB_NAME=beiras_rnn_single_12
+OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
+
+
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE     --train-steps 1000     --eval-steps 100     --verbosity DEBUG
 
 
 gcloud ml-engine jobs stream-logs $JOB_NAME
 gsutil ls -r $OUTPUT_PATH
+tensorboard --logdir=$OUTPUT_PATH --port=8080
 
 Train normal : 1 epoch : 10h and not fihish
 
 Train gpu
 gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/     --region $REGION  --config config.yaml   --     --train-files $TRAIN_DATA     --eval-files $EVAL_DATA     --train-steps 939066     --eval-steps 100     --verbosity DEBUG
 
+gcloud ml-engine jobs cancel beiras_rnn_single_12
+gcloud ml-engine jobs list
 
+
+Not use the keras version from tutorial
 
 

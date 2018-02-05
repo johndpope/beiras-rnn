@@ -4,6 +4,7 @@ import json
 import os
 
 import trainer.model as model
+from tensorflow.python.client import device_lib
 
 from keras.models import load_model
 import model
@@ -49,9 +50,8 @@ class ContinuousEval(keras.callbacks.Callback):
         checkpoints.sort()
         beiras_model = load_model(checkpoints[-1])
         beiras_model = model.compile_model(beiras_model, self.learning_rate)
-        loss, acc =beiras_model.evaluate_generator(
-            model.generator_input(self.eval_files,CHUNK_SIZE,WINDOWS_SIZE,NUM_CHARS),
-            steps=self.steps)
+        x_eval, y_eval = model.get_array_x_y(eval_files, CHUNK_SIZE, WINDOWS_SIZE, NUM_CHARS)
+        loss, acc =beiras_model.evaluate(x_eval,y_eval,steps=self.steps)
         print '\nEvaluation epoch[{}] metrics[{:.2f}, {:.2f}] {}'.format(
             epoch, loss, acc, beiras_model.metrics_names)
         if self.job_dir.startswith("gs://"):
@@ -111,11 +111,8 @@ def dispatch(train_files,
 
   callbacks=[checkpoint, evaluation, tblog]
 
-  beiras_model.fit_generator(
-      model.generator_input(train_files, CHUNK_SIZE,WINDOWS_SIZE,NUM_CHARS),
-      steps_per_epoch=train_steps,
-      epochs=num_epochs,
-      callbacks=callbacks)
+  x,y=model.get_array_x_y(train_files, CHUNK_SIZE, WINDOWS_SIZE,NUM_CHARS)
+  beiras_model.fit(x,y,epochs=num_epochs,callbacks=callbacks,batch_size=500,verbose = 1)
 
   # Unhappy hack to work around h5py not being able to write to GCS.
   # Force snapshots and saves to local filesystem, then copy them over to GCS.
@@ -207,5 +204,5 @@ if __name__ == "__main__":
 
 
   parse_args, unknown = parser.parse_known_args()
-
+  print(device_lib.list_local_devices())
   dispatch(**parse_args.__dict__)

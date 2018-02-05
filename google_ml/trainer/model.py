@@ -105,5 +105,25 @@ def generator_input(input_file, chunk_size,window_size,num_chars):
     return ((np.reshape(x[index % n_rows],(1,x.shape[1],x.shape[2])), np.reshape(y[index % n_rows],(1,y.shape[1]))) for index in
             itertools.count())
 
+def get_array_x_y(input_file, chunk_size,window_size,num_chars):
+    col = []
+    for k in range(0, window_size + 1):
+        col.append(str(k))
+    input_reader = pd.read_csv(tf.gfile.Open(input_file[0]),
+                               chunksize=chunk_size,
+                               names=col)
+    if chunk_size is not None:
+        for input_data in input_reader:
+            n_rows = input_data.shape[0]
+            x, y = input_to_matrix(input_data, num_chars, col[window_size])
+            # GRU in keras need to have a shape N,window_len,input.shape
+            return x,y
+    else:
+        input_data = input_reader
+        n_rows = input_data.shape[0]
+        x, y = input_to_matrix(input_data, num_chars, col[window_size])
+        return x,y
+
+
 
 

@@ -1,8 +1,8 @@
 from setuptools import find_packages
 from setuptools import setup
 
-REQUIRED_PACKAGES = ['Keras==2.0.4',
-                     'h5py==2.7.0']
+REQUIRED_PACKAGES = ['Keras',
+                     'h5py']
 
 setup(
     name='trainer',
