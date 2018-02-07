@@ -67,15 +67,14 @@ def to_savedmodel(model, export_path):
     builder.save()
 
 
-def input_to_matrix(inputs,num_chars,col_label):
-    label = inputs.pop(col_label)
-    x_matrix = np.zeros((inputs.shape[0], inputs.shape[1], num_chars), dtype=np.bool)
-    y_matrix = np.zeros((len(inputs), num_chars), dtype=np.bool)
+def input_to_matrix(inputs,num_chars,window_size):
+    x_matrix = np.zeros((inputs.shape[0], window_size, num_chars), dtype=np.bool)
+    y_matrix = np.zeros((inputs.shape[0], num_chars), dtype=np.bool)
 
     for i, sentence in enumerate(inputs):
-        for t, char in enumerate(sentence):
-            x_matrix[i, t, int(char)] = 1
-        y_matrix[i, int(label[i])] = 1
+        for t in range(window_size):
+            x_matrix[i, t, int(sentence[t])] = 1
+        y_matrix[i, int(sentence[window_size])] = True
     return x_matrix,y_matrix
 
 
@@ -105,23 +104,25 @@ def generator_input(input_file, chunk_size,window_size,num_chars):
     return ((np.reshape(x[index % n_rows],(1,x.shape[1],x.shape[2])), np.reshape(y[index % n_rows],(1,y.shape[1]))) for index in
             itertools.count())
 
-def get_array_x_y(input_file, chunk_size,window_size,num_chars):
-    col = []
-    for k in range(0, window_size + 1):
-        col.append(str(k))
+def get_array_x_y(input_file, train_steps,window_size,num_chars):
+
+    if train_steps>0:
+        chunk_size=train_steps
+    else:
+        chunk_size=None
     input_reader = pd.read_csv(tf.gfile.Open(input_file[0]),
-                               chunksize=chunk_size,
-                               names=col)
+                               chunksize=chunk_size)
+
     if chunk_size is not None:
         for input_data in input_reader:
             n_rows = input_data.shape[0]
-            x, y = input_to_matrix(input_data, num_chars, col[window_size])
+            x, y = input_to_matrix(input_data.as_matrix(), num_chars,window_size )
             # GRU in keras need to have a shape N,window_len,input.shape
             return x,y
     else:
         input_data = input_reader
         n_rows = input_data.shape[0]
-        x, y = input_to_matrix(input_data, num_chars, col[window_size])
+        x, y = input_to_matrix(input_data.as_matrix(), num_chars, window_size)
         return x,y
 
 

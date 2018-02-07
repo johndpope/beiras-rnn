@@ -10,6 +10,8 @@ from keras.models import load_model
 import model
 import keras as keras
 from tensorflow.python.lib.io import file_io
+from keras.utils.training_utils import multi_gpu_model
+import tensorflow as tf
 
 WINDOWS_SIZE = 100
 NUM_CHARS = 55
@@ -30,7 +32,7 @@ class ContinuousEval(keras.callbacks.Callback):
                eval_files,
                learning_rate,
                job_dir,
-               steps=1000):
+               steps=0):
     self.eval_files = eval_files
     self.eval_frequency = eval_frequency
     self.learning_rate = learning_rate
@@ -50,8 +52,8 @@ class ContinuousEval(keras.callbacks.Callback):
         checkpoints.sort()
         beiras_model = load_model(checkpoints[-1])
         beiras_model = model.compile_model(beiras_model, self.learning_rate)
-        x_eval, y_eval = model.get_array_x_y(self.eval_files, CHUNK_SIZE, WINDOWS_SIZE, NUM_CHARS)
-        loss, acc =beiras_model.evaluate(x_eval,y_eval,steps=self.steps)
+        x_eval, y_eval = model.get_array_x_y(self.eval_files, self.steps, WINDOWS_SIZE, NUM_CHARS)
+        loss, acc =beiras_model.evaluate(x_eval,y_eval)
         print '\nEvaluation epoch[{}] metrics[{:.2f}, {:.2f}] {}'.format(
             epoch, loss, acc, beiras_model.metrics_names)
         if self.job_dir.startswith("gs://"):
@@ -74,8 +76,17 @@ def dispatch(train_files,
              scale_factor,
              eval_num_epochs,
              num_epochs,
-             checkpoint_epochs):
-  beiras_model = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
+             checkpoint_epochs,
+             gpus):
+
+  if gpus <= 1:
+    beiras_model = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
+  else:
+    with tf.device("/cpu:0"):
+      beiras_model = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
+      beiras_model = multi_gpu_model(beiras_model, gpus=gpus)
+      model.compile_model(beiras_model, learning_rate)
+
 
   try:
     os.makedirs(job_dir)
@@ -92,7 +103,7 @@ def dispatch(train_files,
   checkpoint = keras.callbacks.ModelCheckpoint(
       checkpoint_path,
       monitor='val_loss',
-      verbose=1,
+      verbose=0,
       period=checkpoint_epochs,
       mode='max')
 
@@ -100,7 +111,8 @@ def dispatch(train_files,
   evaluation = ContinuousEval(eval_frequency,
                               eval_files,
                               learning_rate,
-                              job_dir)
+                              job_dir,
+                              steps=eval_steps)
 
   # Tensorboard logs callback
   tblog = keras.callbacks.TensorBoard(
@@ -111,8 +123,9 @@ def dispatch(train_files,
 
   callbacks=[checkpoint, evaluation, tblog]
 
-  x,y=model.get_array_x_y(train_files, CHUNK_SIZE, WINDOWS_SIZE,NUM_CHARS)
-  beiras_model.fit(x,y,epochs=num_epochs,callbacks=callbacks,batch_size=500,verbose = 1)
+  x,y=model.get_array_x_y(train_files, train_steps, WINDOWS_SIZE,NUM_CHARS)
+  print(beiras_model.summary())
+  beiras_model.fit(x,y,epochs=num_epochs,callbacks=callbacks,batch_size=500)
 
   # Unhappy hack to work around h5py not being able to write to GCS.
   # Force snapshots and saves to local filesystem, then copy them over to GCS.
@@ -148,16 +161,16 @@ if __name__ == "__main__":
                       help='GCS or local dir to write checkpoints and export model')
   parser.add_argument('--train-steps',
                       type=int,
-                      default=100,
+                      default=0,
                       help="""\
-                       Maximum number of training steps to perform
-                       Training steps are in the units of training-batch-size.
-                       So if train-steps is 500 and train-batch-size if 100 then
-                       at most 500 * 100 training instances will be used to train.
+                       Maximum number of training steps to perform. This is \
+                       number of train data to use. \
+                       Default:0 .- use all train file
+                       
                       """)
   parser.add_argument('--eval-steps',
                       help='Number of steps to run evalution for at each checkpoint',
-                      default=100,
+                      default=0,
                       type=int)
   parser.add_argument('--train-batch-size',
                       type=int,
@@ -202,6 +215,10 @@ if __name__ == "__main__":
                       type=int,
                       default=5,
                       help='Checkpoint per n training epochs')
+  parser.add_argument('--gpus',
+                      type=int,
+                      default=1,
+                      help='number gpus')
 
 
   parse_args, unknown = parser.parse_known_args()

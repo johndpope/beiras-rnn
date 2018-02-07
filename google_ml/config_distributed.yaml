@@ -1,0 +1,7 @@
+trainingInput:
+  # Use a cluster with many workers and a few parameter servers.
+  scaleTier: CUSTOM
+  masterType : large_model
+  workerCount : 4
+  workerType : large_model
+
