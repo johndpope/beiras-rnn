@@ -154,8 +154,24 @@ trainingInput:
   scaleTier: CUSTOM
   masterType: complex_model_m_gpu
   
-It go at same speed
+JOB_NAME=beiras_rnn_gpus_1
+OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE    --gpus=4
 
 Tutorial keras & gpu
 https://www.pyimagesearch.com/2017/10/30/how-to-multi-gpu-training-with-keras-python-and-deep-learning/
+
+fhttps://keras.io/utils/#multi_gpu_model
+https://keras.io/getting-started/faq/#how-can-i-run-a-keras-model-on-multiple-gpus
+
+gcloud ml-engine jobs cancel  $JOB_NAME
+
+
+
+For several nodes, make a cluster an run
+server = tf.train.Server.create_local_server()
+sess = tf.Session(server.target)
+
+from keras import backend as K
+K.set_session(sess)
 

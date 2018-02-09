@@ -83,9 +83,9 @@ def dispatch(train_files,
     beiras_model = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
   else:
     with tf.device("/cpu:0"):
-      beiras_model = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
-      beiras_model = multi_gpu_model(beiras_model, gpus=gpus)
-      model.compile_model(beiras_model, learning_rate)
+      beiras_model_single = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
+    beiras_model = multi_gpu_model(beiras_model_single, gpus=gpus)
+    model.compile_model(beiras_model, learning_rate)
 
 
   try:

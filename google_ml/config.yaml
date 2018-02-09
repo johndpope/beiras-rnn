@@ -1,4 +1,4 @@
 trainingInput:
-  scaleTier: BASIC_GPU
-  #scaleTier: CUSTOM
-  #masterType: complex_model_m_gpu
+  #scaleTier: BASIC_GPU
+  scaleTier: CUSTOM
+  masterType: complex_model_m_gpu
