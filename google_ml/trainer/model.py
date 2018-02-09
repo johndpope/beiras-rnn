@@ -33,7 +33,6 @@ def model_fn(number_chars,learning_rate=0.001,window_size = 100):
     model.add(GRU(200))
     # 2 Layer .-  Dense, with number chars unit and softmax activation
     model.add(Dense(number_chars, activation='softmax'))
-    compile_model(model, learning_rate)
     return model
 
 
