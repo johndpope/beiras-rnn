@@ -161,10 +161,34 @@ gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     -
 Tutorial keras & gpu
 https://www.pyimagesearch.com/2017/10/30/how-to-multi-gpu-training-with-keras-python-and-deep-learning/
 
-fhttps://keras.io/utils/#multi_gpu_model
+https://keras.io/utils/#multi_gpu_model
 https://keras.io/getting-started/faq/#how-can-i-run-a-keras-model-on-multiple-gpus
 
 gcloud ml-engine jobs cancel  $JOB_NAME
+
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		==================================================================================================
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		gru_1_input (InputLayer)        (None, 100, 55)      0                                            
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_1 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_2 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_3 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_4 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		sequential_1 (Sequential)       (None, 55)           405255      lambda_1[0][0]                   
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_2[0][0]                   
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_3[0][0]                   
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_4[0][0]                   
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		dense_1 (Concatenate)           (None, 55)           0           sequential_1[1][0]               
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[2][0]               
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[3][0]               
+INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[4][0]    
+
+
+
 
 
 

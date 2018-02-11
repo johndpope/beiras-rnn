@@ -79,14 +79,18 @@ def dispatch(train_files,
              checkpoint_epochs,
              gpus):
 
+  
   if gpus <= 1:
-    beiras_model = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
+    model_train = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
+    model_save = model_train
   else:
     with tf.device("/cpu:0"):
-      beiras_model_single = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
-    beiras_model = multi_gpu_model(beiras_model_single, gpus=gpus)
-    model.compile_model(beiras_model, learning_rate)
-
+      model_save = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
+    model_train = multi_gpu_model(model_save, gpus=gpus)
+    model.compile_model(model_save, learning_rate)
+    print(model_save.summary())
+  model.compile_model(model_train, learning_rate)
+  print(model_train.summary())
 
   try:
     os.makedirs(job_dir)
@@ -124,19 +128,19 @@ def dispatch(train_files,
   callbacks=[checkpoint, evaluation, tblog]
 
   x,y=model.get_array_x_y(train_files, train_steps, WINDOWS_SIZE,NUM_CHARS)
-  print(beiras_model.summary())
-  beiras_model.fit(x,y,epochs=num_epochs,callbacks=callbacks,batch_size=500)
+  
+  model_train.fit(x,y,epochs=num_epochs,callbacks=callbacks,batch_size=500)
 
   # Unhappy hack to work around h5py not being able to write to GCS.
   # Force snapshots and saves to local filesystem, then copy them over to GCS.
   if job_dir.startswith("gs://"):
-    beiras_model.save(BEIRAS_MODEL)
+    model_save.save(BEIRAS_MODEL)
     copy_file_to_gcs(job_dir, BEIRAS_MODEL)
   else:
-      beiras_model.save(os.path.join(job_dir, BEIRAS_MODEL))
+      model_save.save(os.path.join(job_dir, BEIRAS_MODEL))
 
   # Convert the Keras model to TensorFlow SavedModel
-  model.to_savedmodel(beiras_model, os.path.join(job_dir, 'export'))
+  model.to_savedmodel(model_save, os.path.join(job_dir, 'export'))
 
 # h5py workaround: copy local models over to GCS if the job_dir is GCS.
 def copy_file_to_gcs(job_dir, file_path):
