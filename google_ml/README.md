@@ -22,7 +22,8 @@ MODEL_DIR=./output
 rm -rf $MODEL_DIR
 
 
-gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR -- --train-file $TRAIN_FILE --eval-files $EVAL_FILE  --eval-steps 100 --train-steps 1000 --eval-frequency 2 --checkpoint-epochs 1
+gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR -- 
+    --train-file $TRAIN_FILE --eval-files $EVAL_FILE  --eval-steps 100 --train-steps 1000 --eval-frequency 2 --checkpoint-epochs 1
 
 tensorboard --logdir=output --port=8080
 ```
@@ -31,19 +32,21 @@ tensorboard --logdir=output --port=8080
 TRAIN_FILE=./data/beiras_train.csv
 EVAL_FILE=./data/beiras_eval.csv
 MODEL_DIR=./output
-gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR --distributed -- --train-file $TRAIN_FILE --eval-files $EVAL_FILE --train-steps 1000 --eval-steps 100
+gcloud ml-engine local train --module-name trainer.task --package-path trainer/ --job-dir $MODEL_DIR --distributed --
+ --train-file $TRAIN_FILE --eval-files $EVAL_FILE --train-steps 1000 --eval-steps 100
 tensorboard --logdir=output --port=8080
 ```
 * Test training in local
 
-* Install tensorflow serving and tensorflow api
+ Install tensorflow serving and tensorflow api
 ```sh
-echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" | sudo tee /etc/apt/sources.list.d/tensorflow-serving.list
+echo "deb [arch=amd64] http://storage.googleapis.com/tensorflow-serving-apt stable tensorflow-model-server tensorflow-model-server-universal" 
+| sudo tee /etc/apt/sources.list.d/tensorflow-serving.list
 curl https://storage.googleapis.com/tensorflow-serving-apt/tensorflow-serving.release.pub.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install tensorflow-model-server
 pip install tensorflow-serving-api
 ```
-* Predict
+ Predict
 ```sh
 tensorflow_model_server --port=9000 --model_name=default --model_base_path=/home/jota/ml/beiras-rnn/export-tf
 
@@ -51,151 +54,146 @@ python predict-tf-serving.py  pla panfletaria contra as leoninas taxas impostas 
 ```
 pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneranaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
+## Cloud train
+* Create the bucket and upload training tada
+```sh
 BUCKET_NAME="beiras_rnn_mlengine"
 REGION=us-central1
 gsutil mb -l $REGION gs://$BUCKET_NAME
 gsutil cp -r data/* gs://$BUCKET_NAME/data
+```
 
 
+* Lanch the training in a basic node. This is too slow. From the tutorial you need to change the setup.py
+ in order to use the default keras version.
+```sh
 BUCKET_NAME="beiras_rnn_mlengine"
 REGION=us-central1
 TRAIN_FILE=gs://$BUCKET_NAME/data/beiras_train.csv
 EVAL_FILE=gs://$BUCKET_NAME/data/beiras_eval.csv
-
-JOB_NAME=beiras_rnn_single_22
+JOB_NAME=beiras_rnn_single_30
 OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
-gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE     --eval-frequency 2 --checkpoint-epochs 1
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     
+    --module-name trainer.task  --package-path trainer/  --scale-tier BASIC   --region $REGION     --
+    --train-files $TRAIN_FILE     --eval-files $EVAL_FILE    
+```
 
 
+* Lanch the training in a node with a gpu. It need 10 minutes to train a epoch.
+```sh
+BUCKET_NAME="beiras_rnn_mlengine"
+REGION=us-central1
+TRAIN_FILE=gs://$BUCKET_NAME/data/beiras_train.csv
+EVAL_FILE=gs://$BUCKET_NAME/data/beiras_eval.csv
+JOB_NAME=beiras_rnn_single_30
+OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     
+    --module-name trainer.task     --package-path trainer/  --scale-tier BASIC_GPU   --region $REGION   
+     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE    
+```
+
+
+### Commands for cloud train
+
+See the log
+```sh
 gcloud ml-engine jobs stream-logs $JOB_NAME
+```
+See the output
+```sh
 gsutil ls -r $OUTPUT_PATH
+```
+Use tensorboard to see the output
+```sh
 tensorboard --logdir=$OUTPUT_PATH --port=8080
-
-Train normal : 1 epoch : 10h and not fihish
-
-
+```
+Get jobs list
+```sh
 gcloud ml-engine jobs cancel beiras_rnn_single_12
+```
+Cancel a job
+```sh
 gcloud ml-engine jobs list
+```
 
 
-Not use the keras version from tutorial
-
-
-Download export model
+### Download and export the model
+```sh
 EXPORT_PATH=/home/jota/ml/beiras-rnn/export-tf
 mkdir $EXPORT_PATH/6
 gsutil cp -r $OUTPUT_PATH/export/* $EXPORT_PATH/6
+python predict-tf-serving.py  pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran
+```
 
 
-
-tensorflow_model_server --port=9000 --model_name=default --model_base_path=$EXPORT_PATH/
-
- python predict-tf-serving.py  pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran
+## Cloud train distributed
 
 
-pla panfletaria contra as leoninas taxas impostas polo ministro de xustiza actual malia que vulneran en cartón ao desenvolvemento de estado e a sua propria contra tiña unha posición de que o partir de
+```sh
+ gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4 
+     --module-name trainer.task     --package-path trainer/   --scale-tier STANDARD_1  --region $REGION    
+     --   --train-files $TRAIN_FILE     --eval-files $EVAL_FILE 
+ ```
 
-Execucion boa gpu e a 22
-INFO	2018-02-06 17:09:57 +0100	master-replica-0		Epoch 1/20
-INFO	2018-02-06 17:20:52 +0100	master-replica-0		Epoch 00001: saving model to checkpoint.01.hdf5
-INFO	2018-02-06 17:20:53 +0100	master-replica-0		Epoch 2/20
-INFO	2018-02-06 17:31:48 +0100	master-replica-0		Epoch 00002: saving model to checkpoint.02.hdf5
-INFO	2018-02-06 17:40:01 +0100	master-replica-0		Epoch 3/20
-INFO	2018-02-06 17:50:52 +0100	master-replica-0		Epoch 00003: saving model to checkpoint.03.hdf5
-INFO	2018-02-06 17:50:52 +0100	master-replica-0		Epoch 4/20
-INFO	2018-02-06 18:01:43 +0100	master-replica-0		Epoch 00004: saving model to checkpoint.04.hdf5
-INFO	2018-02-06 18:09:56 +0100	master-replica-0		Epoch 5/20
-INFO	2018-02-06 18:20:55 +0100	master-replica-0		Epoch 00005: saving model to checkpoint.05.hdf5
-INFO	2018-02-06 18:20:55 +0100	master-replica-0		Epoch 6/20
-INFO	2018-02-06 18:32:00 +0100	master-replica-0		Epoch 00006: saving model to checkpoint.06.hdf5
-INFO	2018-02-06 18:40:24 +0100	master-replica-0		Epoch 7/20
-INFO	2018-02-06 18:51:25 +0100	master-replica-0		Epoch 00007: saving model to checkpoint.07.hdf5
-INFO	2018-02-06 18:51:26 +0100	master-replica-0		Epoch 8/20
-INFO	2018-02-06 19:02:23 +0100	master-replica-0		Epoch 00008: saving model to checkpoint.08.hdf5
-INFO	2018-02-06 19:21:40 +0100	master-replica-0		Epoch 00009: saving model to checkpoint.09.hdf5
-INFO	2018-02-06 19:21:41 +0100	master-replica-0		Epoch 10/20
-INFO	2018-02-06 19:32:37 +0100	master-replica-0		Epoch 00010: saving model to checkpoint.10.hdf5
-INFO	2018-02-06 19:40:56 +0100	master-replica-0		Epoch 11/20
-INFO	2018-02-06 19:51:54 +0100	master-replica-0		Epoch 00011: saving model to checkpoint.11.hdf5
-INFO	2018-02-06 19:51:54 +0100	master-replica-0		Epoch 12/20
-INFO	2018-02-06 20:02:53 +0100	master-replica-0		Epoch 00012: saving model to checkpoint.12.hdf5
-INFO	2018-02-06 20:11:11 +0100	master-replica-0		Epoch 13/20
-INFO	2018-02-06 20:22:12 +0100	master-replica-0		Epoch 00013: saving model to checkpoint.13.hdf5
-INFO	2018-02-06 20:22:12 +0100	master-replica-0		Epoch 14/20
-INFO	2018-02-06 20:33:12 +0100	master-replica-0		Epoch 00014: saving model to checkpoint.14.hdf5
-INFO	2018-02-06 20:41:32 +0100	master-replica-0		Epoch 15/20
-INFO	2018-02-06 20:52:32 +0100	master-replica-0		Epoch 00015: saving model to checkpoint.15.hdf5
-INFO	2018-02-06 20:52:32 +0100	master-replica-0		Epoch 16/20
-INFO	2018-02-06 21:03:33 +0100	master-replica-0		Epoch 00016: saving model to checkpoint.16.hdf5
-INFO	2018-02-06 21:11:55 +0100	master-replica-0		Epoch 17/20
-INFO	2018-02-06 21:22:52 +0100	master-replica-0		Epoch 00017: saving model to checkpoint.17.hdf5
-INFO	2018-02-06 21:22:52 +0100	master-replica-0		Epoch 18/20
-INFO	2018-02-06 21:33:49 +0100	master-replica-0		Epoch 00018: saving model to checkpoint.18.hdf5
-INFO	2018-02-06 21:42:11 +0100	master-replica-0		Epoch 19/20
-INFO	2018-02-06 21:53:08 +0100	master-replica-0		Epoch 00019: saving model to checkpoint.19.hdf5
-INFO	2018-02-06 21:53:08 +0100	master-replica-0		Epoch 20/20
-INFO	2018-02-06 22:04:05 +0100	master-replica-0		Epoch 00020: saving model to checkpoint.20.hdf5
+I tried this, but nodes go out of memory and the training is repeating in all nodes, not distributing it.
 
-Slow,it is repeating the work in all nodes 
-
-
-config_distributed.yaml 
+I also try with this config file config_distributed.yaml
+```yaml 
 trainingInput:
   scaleTier: CUSTOM
   masterType : large_model
   workerCount : 4
   workerType : large_model
-  
-  
-Several gpus
+```
 
+
+## Cloud train several gpus
+
+I try this config file
+```yaml 
 trainingInput:
   #scaleTier: BASIC_GPU
   scaleTier: CUSTOM
   masterType: complex_model_m_gpu
+```
   
+
+```sh
 JOB_NAME=beiras_rnn_gpus_1
 OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
-gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE    --gpus=4
+gcloud ml-engine jobs submit training $JOB_NAME     --job-dir $OUTPUT_PATH     --runtime-version 1.4     
+    --module-name trainer.task     --package-path trainer/   --config config.yaml  --region $REGION     
+    --     --train-files $TRAIN_FILE     --eval-files $EVAL_FILE    --gpus=4
+```
 
-Tutorial keras & gpu
-https://www.pyimagesearch.com/2017/10/30/how-to-multi-gpu-training-with-keras-python-and-deep-learning/
-
-https://keras.io/utils/#multi_gpu_model
-https://keras.io/getting-started/faq/#how-can-i-run-a-keras-model-on-multiple-gpus
-
-gcloud ml-engine jobs cancel  $JOB_NAME
-
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		==================================================================================================
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		gru_1_input (InputLayer)        (None, 100, 55)      0                                            
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_1 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_2 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_3 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		lambda_4 (Lambda)               (None, 100, 55)      0           gru_1_input[0][0]                
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		sequential_1 (Sequential)       (None, 55)           405255      lambda_1[0][0]                   
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_2[0][0]                   
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_3[0][0]                   
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 lambda_4[0][0]                   
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		__________________________________________________________________________________________________
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		dense_1 (Concatenate)           (None, 55)           0           sequential_1[1][0]               
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[2][0]               
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[3][0]               
-INFO	2018-02-09 18:23:02 +0100	master-replica-0		                                                                 sequential_1[4][0]    
+But it was slower than with only one GPU
 
 
+[Tutorial keras gpu 1](
+https://www.pyimagesearch.com/2017/10/30/how-to-multi-gpu-training-with-keras-python-and-deep-learning/)
+[Tutorial keras gpu 2](
+https://keras.io/getting-started/faq/#how-can-i-run-a-keras-model-on-multiple-gpus)
+[Keras multi gpu podel](https://keras.io/utils/#multi_gpu_model)
 
+[Discussion about why keras is slow in multi gpu](https://github.com/keras-team/keras/issues/9204)
+### Change in code to use sevarals gpus
+With severals GPU you use 2 models, un for training and other for store.
+The first one is assigned to the CPU, the other run in the GPU and is generated using multi_gpu_model
+```python
+  if gpus <= 1:
+    model_train = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
+    model_save = model_train
+  else:
+    with tf.device("/cpu:0"):
+      model_save = model.model_fn(NUM_CHARS, window_size=WINDOWS_SIZE)
+    model_train = multi_gpu_model(model_save, gpus=gpus)
+    model.compile_model(model_save, learning_rate)
+    print(model_save.summary())
+  model.compile_model(model_train, learning_rate)
+  print(model_train.summary())
+```
 
 
 
-For several nodes, make a cluster an run
-server = tf.train.Server.create_local_server()
-sess = tf.Session(server.target)
 
-from keras import backend as K
-K.set_session(sess)
 

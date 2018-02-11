@@ -71,15 +71,16 @@ def dispatch(train_files,
              eval_batch_size,
              learning_rate,
              eval_frequency,
-             first_layer_size,
-             num_layers,
-             scale_factor,
              eval_num_epochs,
              num_epochs,
              checkpoint_epochs,
              gpus):
 
-  
+    #With severals GPU you use 2 models, un for training and other for store.
+    # The first one is assigned to the CPU,
+    # the other run in the GPU and is generated using multi_gpu_model
+
+
   if gpus <= 1:
     model_train = model.model_fn(NUM_CHARS,window_size=WINDOWS_SIZE)
     model_save = model_train
@@ -192,21 +193,6 @@ if __name__ == "__main__":
                       default=10,
                       type=int,
                       help='Perform one evaluation per n epochs')
-  parser.add_argument('--first-layer-size',
-                     type=int,
-                     default=256,
-                     help='Number of nodes in the first layer of DNN')
-  parser.add_argument('--num-layers',
-                     type=int,
-                     default=2,
-                     help='Number of layers in DNN')
-  parser.add_argument('--scale-factor',
-                     type=float,
-                     default=0.25,
-                     help="""\
-                      Rate of decay size of layer for Deep Neural Net.
-                      max(2, int(first_layer_size * scale_factor**i)) \
-                      """)
   parser.add_argument('--eval-num-epochs',
                      type=int,
                      default=1,

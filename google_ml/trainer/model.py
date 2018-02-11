@@ -80,7 +80,7 @@ def input_to_matrix(inputs,num_chars,window_size):
 
 def generator_input(input_file, chunk_size,window_size,num_chars):
   """Generator function to produce features and labels
-     needed by keras fit_generator.
+     needed by keras fit_generator. It is very slow
   """
   col=[]
   for k in range(0,window_size+1):
@@ -104,7 +104,8 @@ def generator_input(input_file, chunk_size,window_size,num_chars):
             itertools.count())
 
 def get_array_x_y(input_file, train_steps,window_size,num_chars):
-
+    """Get X and Y to use with keras fit.
+    """
     if train_steps>0:
         chunk_size=train_steps
     else:
