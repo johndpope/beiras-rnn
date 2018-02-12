@@ -11,6 +11,7 @@ There is 3 group of function
 import numpy as np
 import re
 import pickle
+import unittest
 
 """
 Funtions Clean and load the text file
@@ -202,6 +203,27 @@ def decode_text(l_text_coded, l_indices_to_chars):
     for t, index in enumerate(l_text_coded):
         l_text_decoded += l_indices_to_chars[index]
     return l_text_decoded
+
+class TestDictionary(unittest.TestCase):
+    def test_load(self):
+        window_size = 100
+        step_size = 1
+        X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text(
+        '../data/Beiras.txt', window_size, step_size)
+        save_coded_dictionaries(chars_to_indices, indices_to_chars)
+        chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
+        self.assertEqual(chars_to_indices, chars_to_indices_new)
+        self.assertEqual(indices_to_chars, indices_to_chars_new)
+    def test_encoded(self):
+        window_size = 100
+        step_size = 1
+        X, y, chars, chars_to_indices, indices_to_chars, text_clean = load_text(
+        '../data/Beiras.txt', window_size, step_size)
+        chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
+        text_org = text_clean[:100]
+        text_coded = encode_text(text_org, chars_to_indices)
+        text_decoded = decode_text(text_coded, indices_to_chars_new)
+        self.assertEqual(text_org ,  text_decoded )
 
 
 if __name__ == "__main__":
