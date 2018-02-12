@@ -17,10 +17,7 @@ WINDOWS_SIZE = 100
 NUM_CHARS = 55
 FILE_PATH = 'checkpoint.{epoch:02d}.hdf5'
 BEIRAS_MODEL = 'beiras.hdf5'
-# In local, use a value to be able to load train data in memory
-#CHUNK_SIZE = 5000
-# In Cloud, use this value
-CHUNK_SIZE = None
+
 
 class ContinuousEval(keras.callbacks.Callback):
   """Continuous eval callback to evaluate the checkpoint once
@@ -74,7 +71,8 @@ def dispatch(train_files,
              eval_num_epochs,
              num_epochs,
              checkpoint_epochs,
-             gpus):
+             gpus
+             chunk_size):
 
     #With severals GPU you use 2 models, un for training and other for store.
     # The first one is assigned to the CPU,
@@ -208,7 +206,6 @@ if __name__ == "__main__":
   parser.add_argument('--gpus',
                       type=int,
                       default=1,
-                      help='number gpus')
 
 
   parse_args, unknown = parser.parse_known_args()
