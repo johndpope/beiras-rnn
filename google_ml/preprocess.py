@@ -15,6 +15,7 @@ import re
 import pickle
 import csv
 import tensorflow as tf
+import unittest
 sys.path.insert(0, '../aux/')
 from beiras_aux import save_coded_dictionaries,load_coded_dictionaries, \
     predict_next_chars, clean_text,load_text, encode_io_pairs,\
@@ -103,6 +104,13 @@ def csv_to_text(csv_file,index_to_char):
     return text
 
 
+class TestPreproccess(unittest.TestCase):
+    def test_load(self):
+         chars_to_indices_new, indices_to_chars_new = load_coded_dictionaries()
+         text_clean = load_text_clean('../data/Beiras.txt',chars_to_indices_new )
+         text_to_csv(text_clean, "train.unittest","test.unittest",chars_to_indices_new,PERCENT_TRAIN)
+         text_read=csv_to_text("train.unittest", indices_to_chars_new)
+         self.assertEqual(text_clean[:101] ,  text_read[0] )
 
 
 if __name__ == "__main__":
