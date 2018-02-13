@@ -177,7 +177,7 @@ https://keras.io/getting-started/faq/#how-can-i-run-a-keras-model-on-multiple-gp
 
 [Discussion about why keras is slow in multi gpu](https://github.com/keras-team/keras/issues/9204)
 ### Change in code to use sevarals gpus
-With severals GPU you use 2 models, un for training and other for store.
+With several GPU you use 2 models, one for training and other for store.
 The first one is assigned to the CPU, the other run in the GPU and is generated using multi_gpu_model
 ```python
   if gpus <= 1:
