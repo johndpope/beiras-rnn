@@ -66,11 +66,14 @@ It normally takes 10 hours to train the models in a g2.2xlarge AWS machine.
 
 
 
-## Google Cloud Deploy
+## Google Cloud Deploy (./google-cloud)
 * Google ML Python 2.7.ipynb .- How to deploy to Google Cloud ML
 * predict-google-cloud-ml.py : Make a secuence from the sentence introduce in the command line using Google Gloud ML.
 * predict/ - Google App engine API and Web page.
 * predict-app-engine.py : Make a secuence from the sentence introduce in the command line using API app engine.
+
+## Google ML train (./google_ml)
+In this part we train our model in Google cloud: we change our model to be able to use it in the cloud, do a local train for test and then train the Google cloud using tensorflow, gcloud and google-ml. I tried also to use a machine with multi GPU, but it was slower. I tried also to train on multiple machines but It does not work.
 
 
 ## Getting Started
